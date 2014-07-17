@@ -172,7 +172,7 @@ suite('Dialog', function() {
         l10nId: 'l10n keyConfirm'
       }
     };
-    var l10nSpy = this.sinon.spy(navigator.mozL10n, 'localize');
+    var l10nSpy = this.sinon.spy(navigator.mozL10n, 'setAttributes');
     // Now we create the new element
     var dialog = new Dialog(params);
     // We append the element to the DOM
@@ -222,7 +222,7 @@ suite('Dialog', function() {
       }
     };
 
-    var l10nSpy = this.sinon.spy(navigator.mozL10n, 'localize');
+    var l10nSpy = this.sinon.spy(navigator.mozL10n, 'setAttributes');
     // Now we create the new element
     var dialog = new Dialog(params);
     // We append the element to the DOM
