@@ -8,11 +8,17 @@ var Dialogs = {
       var confirmButton = $('confirm-ok');
 
       // set up the dialog based on the options
-      msgEle.textContent = options.message;
-      cancelButton.textContent = options.cancelText ||
-                                 navigator.mozL10n.get('cancel');
-      confirmButton.textContent = options.confirmText ||
-                                  navigator.mozL10n.get('ok');
+      if (options.formattedMessage) {
+        mozL10n.setAttributes(msgEle,
+                              options.formattedMessage.id,
+                              options.formattedMessage.args);
+      } else if (options.message) {
+        msgEle.setAttribute('data-l10n-id', options.message);
+      }
+      var cancelTextId = options.cancelText || 'cancel';
+      cancelButton.setAttribute('data-l10n-id', cancelTextId);
+      var confirmTextId = options.confirmText || 'ok';
+      confirmButton.setAttribute('data-l10n-id', confirmTextId);
 
       if (options.danger) {
         confirmButton.classList.add('danger');
@@ -78,33 +84,33 @@ var Dialogs = {
           $('overlay').classList.add('hidden');
           return;
         case 'nocard':
-          title = _('nocard3-title');
-          text = _('nocard4-text');
+          title = 'nocard3-title';
+          text = 'nocard4-text';
           if (pendingPick) {
             $('overlay-cancel-button').classList.remove('hidden');
             $('overlay-menu').classList.remove('hidden');
           }
           break;
         case 'pluggedin':
-          title = _('pluggedin2-title');
-          text = _('pluggedin2-text');
+          title = 'pluggedin2-title';
+          text = 'pluggedin2-text';
           if (pendingPick) {
             $('overlay-cancel-button').classList.remove('hidden');
             $('overlay-menu').classList.remove('hidden');
           }
           break;
         case 'scanning':
-          title = _('scanning-title');
-          text = _('scanning-text');
+          title = 'scanning-title';
+          text = 'scanning-text';
           if (pendingPick) {
             $('overlay-cancel-button').classList.remove('hidden');
             $('overlay-menu').classList.remove('hidden');
           }
           break;
         case 'emptygallery':
-          title = _(pendingPick ? 'emptygallery2-title-pick' :
-                                  'emptygallery2-title');
-          text = _('emptygallery2-text');
+          title = pendingPick ? 'emptygallery2-title-pick' :
+                                  'emptygallery2-title';
+          text = 'emptygallery2-text';
           $('overlay-menu').classList.remove('hidden');
           if (pendingPick) {
             $('overlay-cancel-button').classList.remove('hidden');
@@ -113,8 +119,8 @@ var Dialogs = {
           }
           break;
         case 'upgrade':
-          title = _('upgrade-title');
-          text = _('upgrade-text');
+          title = 'upgrade-title';
+          text = 'upgrade-text';
           if (pendingPick) {
             $('overlay-cancel-button').classList.remove('hidden');
             $('overlay-menu').classList.remove('hidden');
@@ -129,8 +135,8 @@ var Dialogs = {
           return;
       }
 
-      $('overlay-title').textContent = title;
-      $('overlay-text').textContent = text;
+      $('overlay-title').setAttribute('data-l10n-id', title);
+      $('overlay-text').setAttribute('data-l10n-id', text);
       $('overlay').classList.remove('hidden');
     });
   }
