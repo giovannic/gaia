@@ -32,7 +32,11 @@ var AttachmentMenu = {
       fileType = mimeFirstPart;
     }
 
-    this.header.textContent = fileName;
+    if(!fileName){
+      this.header.setAttribute('data-l10n-id', 'unnamed-attachment');
+    } else {
+      this.header.textContent = fileName;
+    }
 
     l10n.localize(this.viewButton, 'view-attachment-' + fileType);
     l10n.localize(this.removeButton, 'remove-attachment-' + fileType);

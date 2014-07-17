@@ -26,8 +26,7 @@
   function Attachment(blob, options) {
     options = options || {};
     this.blob = blob;
-    this.name = blob.name || options.name ||
-      navigator.mozL10n.get('unnamed-attachment');
+    this.name = blob.name || options.name || '';
     this.isDraft = !!options.isDraft;
   }
 
