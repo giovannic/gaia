@@ -466,7 +466,9 @@ suite('Information view', function() {
         this.sinon.stub(Settings, 'getSimNameByIccId').returns('SIM 1');
         this.sinon.stub(Settings, 'getOperatorByIccId').returns('operator');
         reportView.render();
-        assert.equal(simDetail.textContent, 'SIM 1, operator');
+        
+        assert.equal(navigator.mozL10n.translateFragment(simDetail),
+                     'SIM 1, operator');
         assert.isFalse(simInfo.classList.contains('hide'));
       });
 
