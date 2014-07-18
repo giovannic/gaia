@@ -99,16 +99,30 @@ function showSimInfo(element, iccId) {
     return;
   }
 
-  var info =[];
   // TODO: we might need to re-localize Sim name manually when language changes
-  var simId = Settings.getSimNameByIccId(iccId);
   var operator = Settings.getOperatorByIccId(iccId);
   var number = iccManager.getIccById(iccId).iccInfo.msisdn;
-  info = [simId, operator, number].filter(function(value){
-    return value;
-  });
+  
+  var l10nId;
+  if(operator && number){
+    l10nId = 'sim-detail-full';
+  } else if (operator) {
+    l10nId = 'sim-detail-operator';
+  } else if (number) {
+    l10nId = 'sim-detail-number';
+  } else {
+    l10nId = 'sim-id-label';
+  }
 
-  element.querySelector('.sim-detail').textContent = info.join(', ');
+  navigator.mozL10n.setAttributes(element.querySelector('.sim-detail'),
+                        l10nId,
+                        {
+                          id: Settings.getServiceIdByIccId(iccId),
+                          operator: operator,
+                          number: number
+                        }
+                       );
+
   element.classList.remove('hide');
 }
 
