@@ -99,7 +99,6 @@ function showSimInfo(element, iccId) {
     return;
   }
 
-  // TODO: we might need to re-localize Sim name manually when language changes
   var operator = Settings.getOperatorByIccId(iccId);
   var number = iccManager.getIccById(iccId).iccInfo.msisdn;
   
