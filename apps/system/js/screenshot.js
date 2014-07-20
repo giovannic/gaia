@@ -201,6 +201,37 @@
       }).bind(this);
     },
 
+    sendNotification: function(title, options) {
+      var titlel10nId = title.l10nId;
+      var titlel10nData = title.l10nData;
+      if(titlel10nData){
+        title = navigator.mozL10n.get(titlel10nId,
+                                      titlel10nData);
+      } else {
+        title = navigator.mozL10n.get(titlel10nId);
+      }
+
+      if(options.body){
+        var bodyl10nId = options.body.l10nId;
+        var bodyl10nData = options.body.l10nData;
+        if(bodyl10nData){
+          options.body = navigator.mozL10n.get(bodyl10nId,
+                                               bodyl10nData);
+        } else {
+          options.body = navigator.mozL10n.get(bodyl10nId);
+        }
+      }
+
+      return new window.Notification(title, options);
+    },
+
+    myNotification: function(title, options){
+      navigator.mozL10n.ready(function(){
+        this.sendNotification(title, options);
+      });
+      return this.sendNotification(title, options);
+    },
+
     /**
      * Display a screenshot success or failure notification.
      * Localize the first argument, and localize the third if the second is null
@@ -211,9 +242,9 @@
      * @memberof Screenshot.prototype
      */
     _notify: function notify(titleid, body, bodyid, onClick) {
-      var title = navigator.mozL10n.get(titleid) || titleid;
-      body = body || navigator.mozL10n.get(bodyid);
-      var notification = new window.Notification(title, {
+      var title = {l10nId: titleid};
+      body = {l10nId: bodyid};
+      var notification = this.myNotification(title, {
         body: body,
         icon: 'style/icons/Gallery.png'
       });

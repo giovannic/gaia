@@ -408,7 +408,7 @@ var ActivityHandler = {
           app.launch();
           ActivityHandler.handleMessageNotification(message);
         }
-
+        
         function continueWithNotification(sender, body) {
           var title = sender;
           if (Settings.hasSeveralSim() && message.iccId) {
