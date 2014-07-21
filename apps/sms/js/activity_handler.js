@@ -432,7 +432,7 @@ var ActivityHandler = {
             }
           }
 
-          return new window.Notification(title, options);
+          return new Notification(title, options);
         }
 
         function myNotification(title, options){
