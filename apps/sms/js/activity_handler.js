@@ -409,14 +409,47 @@ var ActivityHandler = {
           ActivityHandler.handleMessageNotification(message);
         }
         
+        function sendNotification(title, options) {
+          var titlel10nId = title.l10nId;
+          var titlel10nData = title.l10nData;
+          if(title.l10nId){
+            if(titlel10nData){
+              title = navigator.mozL10n.get(titlel10nId,
+                                            titlel10nData);
+            } else {
+              title = navigator.mozL10n.get(titlel10nId);
+            }
+          }
+
+          if(options.body && options.body.l10nId){
+            var bodyl10nId = options.body.l10nId;
+            var bodyl10nData = options.body.l10nData;
+            if(bodyl10nData){
+              options.body = navigator.mozL10n.get(bodyl10nId,
+                                                   bodyl10nData);
+            } else {
+              options.body = navigator.mozL10n.get(bodyl10nId);
+            }
+          }
+
+          return new window.Notification(title, options);
+        }
+
+        function myNotification(title, options){
+          navigator.mozL10n.ready(function(){
+            sendNotification(title, options);
+          });
+          return sendNotification(title, options);
+        }
+
         function continueWithNotification(sender, body) {
           var title = sender;
           if (Settings.hasSeveralSim() && message.iccId) {
             var simName = Settings.getSimNameByIccId(message.iccId);
-            title = _(
-              'dsds-notification-title-with-sim',
-              { sim: simName, sender: sender }
-            );
+            title = {
+              l10nId: 'dsds-notification-title-with-sim',
+              l10nData: { sim: simName, sender: sender }
+            };
           }
 
           var options = {
@@ -425,7 +458,7 @@ var ActivityHandler = {
             tag: 'threadId:' + threadId
           };
 
-          var notification = new Notification(title, options);
+          var notification = myNotification(title, options);
           notification.addEventListener('click', goToMessage);
           releaseWakeLock();
 
