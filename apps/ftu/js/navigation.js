@@ -182,7 +182,6 @@ var Navigation = {
       case '#wifi':
         DataMobile.removeSVStatusObserver();
         UIManager.mainTitle.innerHTML = _('selectNetwork');
-        //UIManager.activationScreen.classList.remove('no-options');
         if (UIManager.navBar.classList.contains('secondary-menu')) {
           UIManager.navBar.classList.remove('secondary-menu');
           return;
