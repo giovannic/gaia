@@ -330,11 +330,15 @@ var Navigation = {
     }
 
     // Navigation bar management
-    if (steps[this.currentStep].onlyForward) {
-      UIManager.navBar.classList.add('forward-only');
-    } else {
-      UIManager.navBar.classList.remove('forward-only');
-    }
+    
+    /*
+     *if (steps[this.currentStep].onlyForward) {
+     *  UIManager.navBar.classList.add('forward-only');
+     *} else {
+     *  UIManager.navBar.classList.remove('forward-only');
+     *}
+     */
+
     var nextButton = document.getElementById('forward');
     if (steps[this.currentStep].onlyBackward) {
       nextButton.setAttribute('disabled', 'disabled');
