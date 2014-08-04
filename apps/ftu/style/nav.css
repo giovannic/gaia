@@ -1,0 +1,64 @@
+gaia-menu {
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  position: absolute;
+}
+
+gaia-menu a {
+  display: block;
+  text-decoration: none;
+  outline: 0px none;
+  color: #000;
+  box-sizing: border-box;
+  height: 6rem;
+  font-size: 1.9rem;
+  line-height: 6rem;
+  padding: 0px 3rem;
+  margin: 0px -1.5rem;
+
+  width: 100%;
+  box-sizing: border-box;
+  border-bottom: 0.1rem solid #E7E7E7;
+  color: #333;
+  margin: 0px;
+  position: relative;
+  font-weight: 400;
+}
+
+gaia-menu ul {
+  list-style: none;
+  padding-left:0;
+}
+
+#wifi li > a.menu-item:after {
+    content: "";
+    width: 3rem;
+    height: 3rem;
+    position: absolute;
+    top: calc(50% - 1.5rem);
+    right: 0.5rem;
+    left: 25rem;
+    background: url('/shared/style/buttons/images/next.png') no-repeat scroll center center / 3rem auto transparent;
+}
+
+a.menu-item:before {
+    left: 0px;
+    height: 100%;
+    line-height: 6rem;
+    color: #657073;
+}
+
+[data-type="link-list"] li > a {
+    padding: 0px 1.5rem;
+}
+
+[data-type="link-list"] li > a {
+    text-decoration: none;
+    color: #333;
+    display: block;
+    height: 6rem;
+    position: relative;
+    border: medium none;
+    outline: medium none;
+}
