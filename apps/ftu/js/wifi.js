@@ -378,6 +378,21 @@ var WifiUI = {
           }
         }
       }
+      //join hidden network entry
+      var hiddenli = document.createElement('li');
+      var hiddenlink = document.createElement('a');
+      hiddenlink.setAttribute('id', 'join-hidden-button');
+      hiddenlink.setAttribute('data-l10n-id', 'join-hidden-button');
+      hiddenli.appendChild(hiddenlink);
+      networksList.appendChild(hiddenli);
+
+      //skip entry
+      var nextli = document.createElement('li');
+      var nextlink = document.createElement('a');
+      nextli.appendChild(nextlink);
+      nextli.setAttribute('data-l10n-id', 'navbar-next');
+      networksList.appendChild(nextli);
+
       networksList.dataset.type = 'list';
       networksDOM.appendChild(networksList);
     }
