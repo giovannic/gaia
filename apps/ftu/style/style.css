@@ -315,6 +315,7 @@ gaia-buttons.forward-only .icon-previous {
 
 #wifi li {
   padding: 0 1.5rem;
+  left: -1rem;
 }
 #wifi li.connected p {
   color: #00AACC;
