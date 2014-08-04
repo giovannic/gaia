@@ -359,13 +359,6 @@ gaia-buttons.forward-only .icon-previous {
   padding-top: 0;
 }
 
-#join-hidden-button {
-  bottom: 0;
-  margin-top: 1.5rem;
-  width: calc(100% - 3rem);
-  margin-left: 1.5rem;
-}
-
 #wifi #no-result-container {
   position: absolute;
   background: url('images/wifi_icon.png') no-repeat fixed center / 23.6rem;
