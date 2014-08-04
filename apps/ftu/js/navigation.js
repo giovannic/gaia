@@ -71,15 +71,26 @@ var Navigation = {
   init: function n_init() {
     _ = navigator.mozL10n.get;
     var settings = navigator.mozSettings;
-    var forward = document.getElementById('forward');
-    var back = document.getElementById('back');
-    forward.addEventListener('click', this.forward.bind(this));
-    back.addEventListener('click', this.back.bind(this));
+    var self = this;
+
+    Array.prototype.forEach.call(
+      document.getElementsByClassName('forward'),
+      function(forward){
+        forward.addEventListener('click', Navigation.forward.bind(Navigation));
+      }
+    );
+
+    Array.prototype.forEach.call(
+      document.getElementsByClassName('back'),
+      function(back){
+        back.addEventListener('click', Navigation.back.bind(Navigation));
+      }
+    );
+
     window.addEventListener('hashchange', this);
     UIManager.activationScreen.addEventListener('click',
         this.handleExternalLinksClick.bind(this));
 
-    var self = this;
 
     var reqSIM =
       settings && settings.createLock().get('ftu.sim.mandatory') || {};
