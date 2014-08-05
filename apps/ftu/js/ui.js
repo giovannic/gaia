@@ -91,7 +91,6 @@ var UIManager = {
     'time-configuration-label',
     'time-form',
     // 3G
-    //'data-connection-switch',
     'enable-data',
     'disable-data',
     // Geolocation
@@ -142,7 +141,6 @@ var UIManager = {
     this.simInfoBack.addEventListener('click', this);
     this.simInfoForward.addEventListener('click', this);
 
-    //this.dataConnectionSwitch.addEventListener('click', this);
     this.enableData.addEventListener('click', this);
     this.disableData.addEventListener('click', this);
 
@@ -348,11 +346,6 @@ var UIManager = {
         window.setTimeout(SdManager.importContacts, 0);
         break;
       // 3G
-      //case 'data-connection-switch':
-        //this.dataConnectionChangedByUsr = true;
-        //var status = event.target.checked;
-        //DataMobile.toggle(status);
-        //break;
       case 'enable-data':
         this.dataConnectionChangedByUsr = true;
         DataMobile.toggle(true);
@@ -537,10 +530,6 @@ var UIManager = {
     var timeLabel = document.getElementById('time-configuration-label');
     timeLabel.innerHTML = f.localeFormat(now, _('shortTimeFormat'));
   },
-
-  //updateDataConnectionStatus: function ui_udcs(status) {
-    //this.dataConnectionSwitch.checked = status;
-  //}
 
 };
 

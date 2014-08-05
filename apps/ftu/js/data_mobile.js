@@ -17,8 +17,6 @@ var DataMobile = {
       return;
     }
     this.settings = settings;
-    //document.getElementById('enable-data')
-    //document.getElementById('disable-data')
   },
 
   removeSVStatusObserver: function dm_removeSVStatusObserver() {
