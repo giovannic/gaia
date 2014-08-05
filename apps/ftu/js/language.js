@@ -93,11 +93,11 @@ var LanguageManager = {
     container.innerHTML = '';
     this.getSupportedLanguages(function fillLanguageList(languages) {
       for (var lang in languages) {
-        var input = document.createElement('input');
-        input.type = 'radio';
-        input.name = 'language.current';
-        input.value = lang;
-        input.checked = (lang == uiLanguage);
+        //var input = document.createElement('input');
+        //input.type = 'radio';
+        //input.name = 'language.current';
+        //input.value = lang;
+        //input.checked = (lang == uiLanguage);
 
         var span = document.createElement('span');
         var p = document.createElement('p');
@@ -115,9 +115,10 @@ var LanguageManager = {
         bdo.textContent = languages[lang];
         p.appendChild(bdo);
 
-        var label = document.createElement('label');
-        label.classList.add('pack-radio');
-        label.appendChild(input);
+        var label = document.createElement('a');
+        label.classList.add('menu-item');
+        //label.classList.add('pack-radio');
+        //label.appendChild(input);
         label.appendChild(span);
         label.appendChild(p);
 
