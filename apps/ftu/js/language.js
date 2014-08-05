@@ -129,7 +129,6 @@ var LanguageManager = {
         label.appendChild(span);
         label.appendChild(p);
 
-
         var li = document.createElement('li');
         li.classList.add('forward');
         li.addEventListener('click', me.onLanguageSelection.bind(me, lang));
