@@ -27,7 +27,7 @@ gaia-menu ul {
   padding-left:0;
 }
 
-#wifi li > a.menu-item:after {
+li > a.menu-item:after {
     content: "";
     width: 3rem;
     height: 3rem;
