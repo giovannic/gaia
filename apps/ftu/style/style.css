@@ -626,13 +626,6 @@ aside.connecting {
   margin: 0;
 }
 
-#date_and_time [data-type="list"] {
-  position: absolute;
-  bottom: 0.5rem;
-  left: 0;
-  right: 0;
-}
-
 #date_and_time [data-type="list"] li {
   height: 5rem;
   padding: 0 1.5rem;
