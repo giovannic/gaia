@@ -15,6 +15,11 @@ var LanguageManager = {
       });
   },
 
+  onLanguageSelection: function onLanguageSelection(lang) {
+    this.settings.createLock().set({'language.current': lang});
+    return false;
+  },
+
   handleEvent: function handleEvent(evt) {
     if (!this.settings || evt.target.name != 'language.current') {
       return true;
@@ -91,6 +96,7 @@ var LanguageManager = {
   buildLanguageList: function settings_buildLanguageList(uiLanguage) {
     var container = document.querySelector('#languages ul');
     container.innerHTML = '';
+    var me = this;
     this.getSupportedLanguages(function fillLanguageList(languages) {
       for (var lang in languages) {
         //var input = document.createElement('input');
@@ -117,12 +123,16 @@ var LanguageManager = {
 
         var label = document.createElement('a');
         label.classList.add('menu-item');
+        label.value = lang;
         //label.classList.add('pack-radio');
         //label.appendChild(input);
         label.appendChild(span);
         label.appendChild(p);
 
+
         var li = document.createElement('li');
+        li.classList.add('forward');
+        li.addEventListener('click', me.onLanguageSelection.bind(me, lang));
         li.appendChild(label);
         container.appendChild(li);
       }
