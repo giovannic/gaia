@@ -400,21 +400,26 @@
         </form>
       </section>
       <section role="region" id="geolocation">
-        <article data-type="list">
-          <ul>
-            <li>
-              <gaia-switch id="geolocation-switch" name="geolocation.enabled" checked>
-                <label data-l10n-id="geolocationCheckbox"></label>
-              </gaia-switch>
-            </li>
-          </ul>
-        </article>
         <header><h2 id="geolocationNotice" data-l10n-id="notice"></h2></header>
         <section class="content">
           <p id="geolocationInfo" data-l10n-id="geolocationInfo2">Some text here</p>
           <p id="geolocationInfoMore" data-l10n-id="geolocationInfoMore">Some text here</p>
           <p><a href="#about-your-privacy" data-l10n-id="aboutYourPrivacy">Your Privacy</a></p>
         </section>
+        <article data-type="list">
+          <ul>
+            <li class="forward">
+              <a id='enable-geolocation' class="menu-item">
+                <p data-l10n-id="enableGeolocation"></p>
+              </a>
+            </li>
+            <li class="forward">
+              <a id='disable-geolocation' class="menu-item">
+                <p data-l10n-id="disableGeolocation"></p>
+              </a>
+            </li>
+          </ul>
+        </article>
       </section>
       <section role="region" id="import_contacts">
         <article data-type="list">

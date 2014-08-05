@@ -94,7 +94,8 @@ var UIManager = {
     'enable-data',
     'disable-data',
     // Geolocation
-    'geolocation-switch',
+    'enable-geolocation',
+    'disable-geolocation',
     // Tutorial
     'lets-go-button',
     'update-lets-go-button',
@@ -168,7 +169,8 @@ var UIManager = {
     this.dateConfiguration.addEventListener('input', this);
     this.initTZ();
 
-    this.geolocationSwitch.addEventListener('click', this);
+    this.enableGeolocation.addEventListener('click', this);
+    this.disableGeolocation.addEventListener('click', this);
 
     this.fxaCreateAccount.addEventListener('click', this);
 
@@ -380,8 +382,11 @@ var UIManager = {
         this.setDate();
         break;
       // Geolocation
-      case 'geolocation-switch':
-        this.updateSetting(event.target.name, event.target.checked);
+      case 'enable-geolocation':
+        this.updateSetting('geolocation.enabled', true);
+        break;
+      case 'disable-geolocation':
+        this.updateSetting('geolocation.enabled', false);
         break;
       // Privacy
       case 'share-performance':
