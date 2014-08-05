@@ -247,19 +247,29 @@
         </article>
       </section>
       <section role="region" id="data_3g">
-        <article data-type="list">
-          <ul>
-            <li>
-              <gaia-switch id="data-connection-switch">
-                <label data-l10n-id="dataConnection"></label>
-              </gaia-switch>
-            </li>
-          </ul>
-        </article>
         <header><h2 id="dataCaution" data-l10n-id="caution"></h2></header>
         <section class="content">
           <p id="dataExplanation" data-l10n-id="dataConnectionInfo">Some text here</p>
         </section>
+        <article data-type="list">
+          <ul data-type="list">
+            <!--<li>-->
+              <!--<gaia-switch id="data-connection-switch">-->
+                <!--<label data-l10n-id="dataConnection"></label>-->
+              <!--</gaia-switch>-->
+            <!--</li>-->
+            <li class="forward">
+              <a id='enable-data' class="menu-item">
+                <p data-l10n-id="enable-data"></p>
+              </a>
+            </li>
+            <li class="forward">
+              <a id='disable-data' class="menu-item">
+                <p data-l10n-id="disable-data"></p>
+              </a>
+            </li>
+          </ul>
+        </article>
       </section>
       <section role="region" id="wifi">
         <div id="wifi-wrapper" role="main">

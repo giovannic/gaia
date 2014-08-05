@@ -91,7 +91,9 @@ var UIManager = {
     'time-configuration-label',
     'time-form',
     // 3G
-    'data-connection-switch',
+    //'data-connection-switch',
+    'enable-data',
+    'disable-data',
     // Geolocation
     'geolocation-switch',
     // Tutorial
@@ -140,7 +142,9 @@ var UIManager = {
     this.simInfoBack.addEventListener('click', this);
     this.simInfoForward.addEventListener('click', this);
 
-    this.dataConnectionSwitch.addEventListener('click', this);
+    //this.dataConnectionSwitch.addEventListener('click', this);
+    this.enableData.addEventListener('click', this);
+    this.disableData.addEventListener('click', this);
 
     this.wifiRefreshButton.addEventListener('click', this);
     this.wifiJoinButton.addEventListener('click', this);
@@ -344,10 +348,18 @@ var UIManager = {
         window.setTimeout(SdManager.importContacts, 0);
         break;
       // 3G
-      case 'data-connection-switch':
+      //case 'data-connection-switch':
+        //this.dataConnectionChangedByUsr = true;
+        //var status = event.target.checked;
+        //DataMobile.toggle(status);
+        //break;
+      case 'enable-data':
         this.dataConnectionChangedByUsr = true;
-        var status = event.target.checked;
-        DataMobile.toggle(status);
+        DataMobile.toggle(true);
+        break;
+      case 'disable-data':
+        this.dataConnectionChangedByUsr = true;
+        DataMobile.toggle(false);
         break;
       // WIFI
       case 'wifi-refresh-button':
@@ -526,9 +538,9 @@ var UIManager = {
     timeLabel.innerHTML = f.localeFormat(now, _('shortTimeFormat'));
   },
 
-  updateDataConnectionStatus: function ui_udcs(status) {
-    this.dataConnectionSwitch.checked = status;
-  }
+  //updateDataConnectionStatus: function ui_udcs(status) {
+    //this.dataConnectionSwitch.checked = status;
+  //}
 
 };
 
