@@ -193,10 +193,6 @@ var Navigation = {
       case '#wifi':
         DataMobile.removeSVStatusObserver();
         UIManager.mainTitle.innerHTML = _('selectNetwork');
-        if (UIManager.navBar.classList.contains('secondary-menu')) {
-          UIManager.navBar.classList.remove('secondary-menu');
-          return;
-        }
         // Avoid refresh when connecting
         WifiManager.scan(WifiUI.renderNetworks);
         break;
@@ -245,12 +241,10 @@ var Navigation = {
       case '#about-your-privacy':
         UIManager.mainTitle.innerHTML = _('aboutBrowser');
         UIManager.progressBar.classList.add('hidden');
-        UIManager.navBar.classList.add('back-only');
         break;
       case '#sharing-performance-data':
         UIManager.mainTitle.innerHTML = _('aboutBrowser');
         UIManager.progressBar.classList.add('hidden');
-        UIManager.navBar.classList.add('back-only');
         var linkTelemetry = document.getElementById('external-link-telemetry');
         navigator.mozL10n.localize(linkTelemetry, 'learn-more-telemetry', {
           link: getLocalizedLink('learn-more-telemetry')
@@ -292,7 +286,6 @@ var Navigation = {
     // Managing nav buttons when coming back from out-of-steps (privacy)
     if (this.currentStep <= numSteps &&
         steps[this.currentStep].hash === actualHash) {
-      UIManager.navBar.classList.remove('back-only');
     }
   },
 
@@ -337,30 +330,6 @@ var Navigation = {
       futureLocation.hash = '#SIM_mandatory';
       futureLocation.requireSIM = false;
       futureLocation.onlyBackward = true;
-    }
-
-    // Navigation bar management
-    
-    /*
-     *if (steps[this.currentStep].onlyForward) {
-     *  UIManager.navBar.classList.add('forward-only');
-     *} else {
-     *  UIManager.navBar.classList.remove('forward-only');
-     *}
-     */
-
-    var nextButton = document.getElementById('forward');
-    if (steps[this.currentStep].onlyBackward) {
-      nextButton.setAttribute('disabled', 'disabled');
-    } else {
-      nextButton.removeAttribute('disabled');
-    }
-
-    // Substitute button content on last step
-    if (this.currentStep === numSteps) {
-      nextButton.firstChild.textContent = _('done');
-    } else {
-      nextButton.firstChild.textContent = _('navbar-next');
     }
 
     // Change hash to the right location
