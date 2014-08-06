@@ -260,7 +260,6 @@ var WifiUI = {
     ssidHeader.value = ssid;
 
     // Activate secondary menu
-    //UIManager.navBar.classList.add('secondary-menu');
     // Update changes in form
     if (WifiHelper.isEap(WifiManager.getNetwork(ssid))) {
       userInput.parentNode.classList.remove('hidden');
@@ -277,7 +276,6 @@ var WifiUI = {
     UIManager.activationScreen.classList.add('no-options');
     // Update title
     UIManager.mainTitle.textContent = _('authentication');
-    //UIManager.navBar.classList.add('secondary-menu');
     window.location.hash = '#hidden-wifi-authentication';
   },
 

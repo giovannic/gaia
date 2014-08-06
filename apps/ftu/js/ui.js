@@ -20,7 +20,6 @@ var UIManager = {
     'progress-bar-state',
     'finish-screen',
     'update-screen',
-    //'nav-bar',
     'main-title',
     // Unlock SIM Screen
     'unlock-sim-screen',
