@@ -624,13 +624,14 @@ aside.connecting {
   height: 5rem;
   padding: 0 1.5rem;
   overflow: hidden;
-  display: flex;
+  display: table;
+  border-bottom: none;
 }
 
 #date_and_time [data-type="list"] li p {
-  padding: 0 0.5rem 0 0;
+  padding: 13px 0.5rem 0 0;
   font-size: 1.4rem;
-  line-height: 5rem;
+  line-height: 2rem;
   flex-grow: 1;
 }
 
