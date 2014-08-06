@@ -167,7 +167,7 @@ var UIManager = {
 
     this.timeConfiguration.addEventListener('input', this);
     this.dateConfiguration.addEventListener('input', this);
-    this.initTZ();
+    //this.initTZ();
 
     this.enableGeolocation.addEventListener('click', this);
     this.disableGeolocation.addEventListener('click', this);
@@ -519,16 +519,16 @@ var UIManager = {
 
   setTimeZone: function ui_stz(timezone) {
     var utcOffset = timezone.utcOffset;
-    document.getElementById('time_zone_overlay').className =
-      'UTC' + utcOffset.replace(/[+:]/g, '');
+    //document.getElementById('time_zone_overlay').className =
+      //'UTC' + utcOffset.replace(/[+:]/g, '');
     var timezoneTitle = document.getElementById('time-zone-title');
     navigator.mozL10n.localize(timezoneTitle, 'timezoneTitle', {
       utcOffset: utcOffset,
       region: timezone.region,
       city: timezone.city
     });
-    document.getElementById('tz-region-label').textContent = timezone.region;
-    document.getElementById('tz-city-label').textContent = timezone.city;
+    //document.getElementById('tz-region-label').textContent = timezone.region;
+    //document.getElementById('tz-city-label').textContent = timezone.city;
 
     var f = new navigator.mozL10n.DateTimeFormat();
     var now = new Date();
