@@ -523,12 +523,6 @@ aside.connecting {
   Date and time
 */
 
-.change {
-  float: right;
-  width: 8rem;
-  white-space: nowrap;
-}
-
 #time_zone_overlay {
   background-position: center top;
   background-repeat: no-repeat;
@@ -1033,10 +1027,6 @@ i.hack-first-child {
 .icon {
   background-repeat: no-repeat;
   background-position: center center;
-}
-
-#time-form .icon {
-  background-color: transparent;
 }
 
 /*
