@@ -629,16 +629,29 @@
           <a href="#about-your-privacy" data-l10n-id="aboutYourPrivacy2">Your Privacy</a>
         </section>
         <section id="form_share_statistics">
-          <label class="pack-checkbox">
-            <input type="checkbox" id="share-performance" name="debug.performance_data.shared"/>
+          <!--<label class="pack-checkbox">-->
+            <!--<input type="checkbox" id="share-performance" name="debug.performance_data.shared"/>-->
             <span></span>
             <p data-l10n-id="sharePerformanceAndUsageData">
               I want to help improve Browser OS by sharing data about
               my phone and the way I use it.
               <a href='#sharing-performance-data' data-l10n-id="learnMore">Learn more.</a>
             </p>
-          </label>
+          <!--</label>-->
         </section>
+        <ul data-type="list">
+          <li class="forward">
+            <a class="menu-item" id="share-performance" name="debug.performance_data.shared">
+              <p data-l10n-id="send-data"></p>
+            </a>
+          </li>
+          <li class="forward">
+            <a class="menu-item">
+              <p data-l10n-id="dont-send-data"></p>
+            </a>
+          </li>
+        </ul>
+
       </section>
     </article>
   </section>
