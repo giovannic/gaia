@@ -43,8 +43,8 @@ a {
   position: absolute;
   left: 0;
   right: 0;
-  top: 5rem;
-  bottom: 6.5rem;
+  top: 7rem;
+  bottom: 0;
 }
 
 [role=main] > [role=region] {
