@@ -23,13 +23,7 @@ var steps = {
   3: {
     onlyForward: false,
     hash: '#wifi',
-    requireSIM: false,
-    nextStep: function(){
-      if(WifiManager.gCurrentNetwork !== null){
-        return 5;
-      }
-      return 4;
-    }
+    requireSIM: false
   },
   4: {
     onlyForward: false,
@@ -128,11 +122,7 @@ var Navigation = {
     var self = this;
     var goToStepForward = function() {
       self.previousStep = self.currentStep;
-      if (steps[self.currentStep].nextStep){
-        self.currentStep = steps[self.currentStep].nextStep();
-      } else {
-        self.currentStep++;
-      }
+      self.currentStep++;
       if (self.currentStep > numSteps) {
         // Try to send Newsletter here
         UIManager.sendNewsletter(function newsletterSent(result) {
@@ -365,6 +355,11 @@ var Navigation = {
       // show the SIM unlock screens for the data_3g step
       var skipUnlockScreens = this.currentStep < this.previousStep;
       SimManager.handleCardState(check_cardState, skipUnlockScreens);
+    }
+
+    //do not ask for date if we have connected
+    if(self.currentStep === 4 && WifiManager.gCurrentNetwork !== null){
+      self.skipStep();
     }
   }
 };
