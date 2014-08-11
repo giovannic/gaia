@@ -646,10 +646,6 @@ aside.connecting {
   Import
 */
 
-#import_contacts li {
-  padding: 0 3.5rem;
-}
-
 #import_contacts li.importOption {
   padding: 0 !important;
   height: auto !important;
@@ -1032,11 +1028,6 @@ i.hack-first-child {
   3G & geolocation
 */
 
-#data_3g [data-type="list"] li,
-#geolocation [data-type="list"] li {
-  padding-left: 1.5rem;
-}
-
 #data_3g .content,
 #geolocation .content {
   padding: 0 3rem 1rem 3rem;
@@ -1069,7 +1060,7 @@ i.hack-first-child {
   height: 17.5rem;
 }
 
-#firefox_accounts {
+#fxa-intro {
   padding: 1rem 1rem 0;
   font-size: 1.5rem;
   text-align: center;
