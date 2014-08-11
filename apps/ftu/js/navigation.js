@@ -23,7 +23,13 @@ var steps = {
   3: {
     onlyForward: false,
     hash: '#wifi',
-    requireSIM: false
+    requireSIM: false,
+    nextStep: function(){
+      if(WifiManager.gCurrentNetwork !== null){
+        return 5;
+      }
+      return 4;
+    }
   },
   4: {
     onlyForward: false,
@@ -122,7 +128,11 @@ var Navigation = {
     var self = this;
     var goToStepForward = function() {
       self.previousStep = self.currentStep;
-      self.currentStep++;
+      if (steps[self.currentStep].nextStep){
+        self.currentStep = steps[self.currentStep].nextStep();
+      } else {
+        self.currentStep++;
+      }
       if (self.currentStep > numSteps) {
         // Try to send Newsletter here
         UIManager.sendNewsletter(function newsletterSent(result) {
