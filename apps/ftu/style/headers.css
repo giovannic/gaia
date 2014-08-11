@@ -1,0 +1,8 @@
+section.skin-organic[role="region"] > header:first-child, .skin-organic section[role="region"] > header:first-child {
+    color: #868692;
+    background-color: rgba(0, 0, 0, 0.07);
+}
+
+section[role="region"] > header:first-child a:active, section[role="region"] > header:first-child button:active, section[role="region"] > header:first-child a:hover, section[role="region"] > header:first-child button:hover {
+    background-color: transparent;
+}
