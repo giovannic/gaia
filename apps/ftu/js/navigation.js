@@ -321,6 +321,8 @@ var Navigation = {
     if (futureLocation.hash === '#wifi') {
       utils.overlay.show(_('scanningNetworks'), 'spinner');
     }
+    
+    
 
     // If SIMcard is mandatory and no SIM, go to message window
     if (this.simMandatory &&
@@ -357,9 +359,11 @@ var Navigation = {
       SimManager.handleCardState(check_cardState, skipUnlockScreens);
     }
 
-    //do not ask for date if we have connected
-    if(self.currentStep === 4 && WifiManager.gCurrentNetwork !== null){
+    // Do not ask for date if we have connected
+    if(futureLocation.hash === '#date_and_time' &&
+       WifiManager.gCurrentNetwork !== null){
       self.skipStep();
     }
+    
   }
 };
