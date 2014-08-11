@@ -360,8 +360,8 @@ var Navigation = {
     }
 
     // Do not ask for date if we have connected
-    if(futureLocation.hash === '#date_and_time' &&
-       WifiManager.gCurrentNetwork !== null){
+    if (futureLocation.hash === '#date_and_time' &&
+       WifiManager.gCurrentNetwork !== null) {
       self.skipStep();
     }
     
