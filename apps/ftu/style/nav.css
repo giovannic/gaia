@@ -71,7 +71,7 @@ a.menu-item:before {
     box-sizing: border-box;
     border-bottom: 0.1rem solid #E7E7E7;
     color: #333;
-    margin: 0px;
+    margin: 0;
     display: block;
     position: relative;
 }
@@ -91,13 +91,13 @@ li > a.nav-item:after {
     pointer-events: none;
     position: absolute;
     left: -1.5rem;
-    top: 0px;
+    top: 0;
     right: -1.5rem;
-    bottom: 0px;
+    bottom: 0;
 }
 
 a.nav-item:before {
-    left: 0px;
+    left: 0;
     height: 100%;
     line-height: 6rem;
     color: #657073;
@@ -109,7 +109,7 @@ a.nav-item:before {
 [data-type="nav-list"] li p:first-of-type {
     line-height: 2.2rem;
     color: #333;
-    padding: 1rem 0px 0px;
+    padding: 1rem 0 0;
 }
 [data-type="nav-list"] li p {
     white-space: nowrap;
@@ -117,7 +117,7 @@ a.nav-item:before {
     text-overflow: ellipsis;
     border: medium none;
     display: block;
-    margin: 0px;
+    margin: 0;
     color: #858585;
     line-height: 2rem;
 }
