@@ -334,6 +334,10 @@ gaia-buttons.forward-only .icon-previous {
   z-index: 0;
 }
 
+#wifi p[data-security-level]{
+  font-size: 15px;
+}
+
 #wifi li:active:after {
   opacity: 0.6;
 }

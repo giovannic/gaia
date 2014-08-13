@@ -126,3 +126,12 @@ a.nav-item:before {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
 }
+
+#wifi [data-type="nav-list"]{
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+#wifi [data-type="nav-list"] li:first-child {
+    border-top: none;
+}
