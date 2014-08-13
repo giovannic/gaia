@@ -364,6 +364,12 @@ var Navigation = {
        WifiManager.gCurrentNetwork !== null) {
       self.skipStep();
     }
+ 
+    // Do not ask for date if we have connected
+    if (futureLocation.hash === '#firefox_accounts' &&
+       WifiManager.gCurrentNetwork === null) {
+      self.skipStep();
+    }
     
   }
-};
+};   
