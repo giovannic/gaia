@@ -45,11 +45,11 @@ a.menu-item:before {
     color: #657073;
 }
 
-[data-type="link-list"] li > a {
+[data-type="nav-list"] li > a {
     padding: 0 1.5rem;
 }
 
-[data-type="link-list"] li > a {
+[data-type="nav-list"] li > a {
     text-decoration: none;
     color: #333;
     display: block;
@@ -57,4 +57,81 @@ a.menu-item:before {
     position: relative;
     border: medium none;
     outline: medium none;
+    font-size: 20px;
+    font-weight: 300;
+}
+
+[data-type="nav-list"] li:first-child {
+    border-top: 0.1rem solid #E7E7E7;
+}
+
+[data-type="nav-list"] li {
+    width: 100%;
+    height: 6rem;
+    box-sizing: border-box;
+    border-bottom: 0.1rem solid #E7E7E7;
+    color: #333;
+    margin: 0;
+    display: block;
+    position: relative;
+}
+
+li > a.nav-item:after {
+    content: "";
+    width: 3rem;
+    height: 3rem;
+    position: absolute;
+    top: calc(50% - 1.5rem);
+    right: 0.5rem;
+    background: url('/shared/style/buttons/images/next.png') no-repeat scroll center center / 3rem auto transparent;
+}
+
+.active[data-type="nav-list"] li:after {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    left: -1.5rem;
+    top: 0;
+    right: -1.5rem;
+    bottom: 0;
+}
+
+a.nav-item:before {
+    left: 0;
+    height: 100%;
+    line-height: 6rem;
+    color: #657073;
+}
+
+[data-type="nav-list"] li p:only-child, [data-type="nav-list"] li p:first-of-type:last-of-type {
+    line-height: 4rem;
+}
+[data-type="nav-list"] li p:first-of-type {
+    line-height: 2.2rem;
+    color: #333;
+    padding: 1rem 0 0;
+}
+[data-type="nav-list"] li p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border: medium none;
+    display: block;
+    margin: 0;
+    color: #858585;
+    line-height: 2rem;
+}
+
+[data-type="nav-list"] ul {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+
+#wifi [data-type="nav-list"]{
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+#wifi [data-type="nav-list"] li:first-child {
+    border-top: none;
 }

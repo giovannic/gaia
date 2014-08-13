@@ -362,7 +362,7 @@ var WifiUI = {
           link.setAttribute('role', 'option');
           link.setAttribute('aria-live', true);
           link.setAttribute('aria-relevant', 'text');
-          link.classList.add('menu-item');
+          link.classList.add('nav-item');
           link.appendChild(icon);
           link.appendChild(ssidp);
           link.appendChild(small);
@@ -377,7 +377,7 @@ var WifiUI = {
         }
       }
 
-      networksList.dataset.type = 'list';
+      networksList.dataset.type = 'nav-list';
       networksDOM.appendChild(networksList);
     }
     utils.overlay.hide();
