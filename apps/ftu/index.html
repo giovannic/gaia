@@ -364,26 +364,26 @@
             <li>
               <p id="tz-region-label" data-l10n-id="region"></p>
               <select id="tz-region" class="invisible"></select>
-              <button id="tz-region-button" class="change icon icon-dialog" data-l10n-id="change" type="button">
+              <button id="tz-region-button" class="change icon" data-l10n-id="change" type="button">
               </button>
             </li>
             <li>
               <p id="tz-city-label" data-l10n-id="city"></p>
               <select id="tz-city" class="invisible"></select>
-              <button id="tz-city-button" class="change icon icon-dialog" data-l10n-id="change" type="button" aria-describedby="tz-city-label">
+              <button id="tz-city-button" class="change icon" data-l10n-id="change" type="button" aria-describedby="tz-city-label">
               </button>
             </li>
             <!-- date/time -->
             <li>
               <p id="date-configuration-label" data-l10n-id="date"></p>
               <input id="date-configuration" class="invisible" type="date" min="1970-1-1" max="2037-12-31"></input>
-              <button id="date-configuration-button" class="change icon icon-dialog" data-l10n-id="change">
+              <button id="date-configuration-button" class="change icon" data-l10n-id="change">
               </button>
             </li>
             <li>
               <p id="time-configuration-label" data-l10n-id="time"></p>
               <input id="time-configuration" class="invisible" type="time"></input>
-              <button id="time-configuration-button" class="change icon icon-dialog" data-l10n-id="change" type="button">
+              <button id="time-configuration-button" class="change icon" data-l10n-id="change" type="button">
               </button>
             </li>
           </ul>
@@ -649,18 +649,20 @@
             <a href='#sharing-performance-data' data-l10n-id="learnMore">Learn more.</a>
           </p>
         </section>
-        <ul data-type="nav-list">
-          <li class="forward">
-            <a class="nav-item" id="share-performance" name="debug.performance_data.shared">
-              <p data-l10n-id="send-data"></p>
-            </a>
-          </li>
-          <li class="forward">
-            <a class="nav-item">
-              <p data-l10n-id="dont-send-data"></p>
-            </a>
-          </li>
-        </ul>
+        <article data-type="nav-list">
+          <ul>
+            <li class="forward">
+              <a class="nav-item" id="share-performance" name="debug.performance_data.shared">
+                <p data-l10n-id="send-data"></p>
+              </a>
+            </li>
+            <li class="forward">
+              <a class="nav-item">
+                <p data-l10n-id="dont-send-data"></p>
+              </a>
+            </li>
+          </ul>
+        </article>
 
       </section>
     </article>
