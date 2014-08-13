@@ -4,9 +4,13 @@ html, body {
   margin: 0;
   padding: 0;
   overflow: hidden !important;
-  font-size: 10px;
-  font-weight: 400;
+  font-size: 11px;
+  font-weight: 300;
   -moz-user-select: none;
+}
+
+p {
+  font-weight: 200;
 }
 
 a {
@@ -308,6 +312,11 @@ gaia-buttons.forward-only .icon-previous {
   padding: 0 1.5rem;
   left: -1rem;
 }
+
+#wifi ul {
+    padding-left: 1.5rem;
+}
+
 #wifi li.connected p {
   color: #00AACC;
 }
@@ -323,6 +332,10 @@ gaia-buttons.forward-only .icon-previous {
   right: 0;
   bottom: 0;
   z-index: 0;
+}
+
+#wifi p[data-security-level]{
+  font-size: 15px;
 }
 
 #wifi li:active:after {
@@ -411,6 +424,11 @@ aside.connecting {
 /*
   Wifi configuration
 */
+
+#hidden-wifi-authentication button {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
 
 #hidden-wifi-authentication form,
 #configure_network_params form {
@@ -595,6 +613,11 @@ aside.connecting {
   z-index: 11;
 }
 
+#time-form [data-type="list"] {
+    font-weight: 400;
+    padding: 0 0;
+}
+
 #date_and_time h1 {
   font-size: 1.6rem;
   line-height: 1.8rem;
@@ -608,7 +631,7 @@ aside.connecting {
   font-size: 1.4rem;
   line-height: 1.6rem;
   padding: 0 1.5rem;
-  font-weight: normal;
+  font-weight: 200;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -622,7 +645,6 @@ aside.connecting {
 
 #date_and_time [data-type="list"] li {
   height: 5rem;
-  padding: 0 1.5rem;
   overflow: hidden;
   display: table;
   border-bottom: none;
@@ -637,7 +659,7 @@ aside.connecting {
 
 #date_and_time [data-type="list"] button {
   font-size: 1.4rem;
-  font-weight: 500;
+  font-weight: 300;
   margin: auto;
 }
 
@@ -699,6 +721,10 @@ aside.connecting {
   padding-left: 4rem;
 }
 
+#import_contacts li button {
+  font-weight: 200;
+}
+
 #import_contacts li button.icon:before {
   right: auto;
   left: 0.5rem;
@@ -737,7 +763,11 @@ aside.connecting {
   width: calc(100% - 6rem);
 }
 
-#welcome_browser p {
+#welcome_browser ul {
+  padding-left: 0;
+}
+
+#form_share_statistics > p, #welcome_browser > p {
   margin: 0;
   color: #000;
   padding: 0 0 2rem 0;
@@ -813,7 +843,7 @@ aside.connecting {
   vertical-align: middle;
 }
 
-#browser_privacy p {
+#browser_privacy > p {
   margin: 0;
   color: #000;
   padding: 0 0 2rem 0;

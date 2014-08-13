@@ -17,6 +17,7 @@
 
   <!-- Specific style -->
   <link rel="stylesheet" href="style/style.css">
+  <link rel="stylesheet" href="style/headers.css">
   <link rel="stylesheet" href="style/status.css">
   <link rel="stylesheet" href="style/overlay.css">
   <link rel="stylesheet" href="style/fb_extensions.css">
@@ -227,20 +228,9 @@
         <button id="wifi-refresh-button" data-l10n-id="refresh">Refresh</button>
       </menu>
     </header>
-    <ol id="progress-bar" class="step-state" role="progressbar" aria-label="First Time Experience" data-l10n-id="progressbar">
-      <li id="progress-bar-state" class="step-state-bar" role="presentation"></li>
-      <li role="presentation">languages</li>
-      <li role="presentation">SIM_mandatory</li>
-      <li role="presentation">3g</li>
-      <li role="presentation">wifi</li>
-      <li role="presentation">configure network</li>
-      <li role="presentation">date and time</li>
-      <li role="presentation">geolocation</li>
-      <li role="presentation">browser privacy</li>
-    </ol>
     <article role="main">
       <section role="region" id="languages">
-        <article data-type="list">
+        <article data-type="nav-list">
           <ul>
             <!-- filled by js/language.js -->
           </ul>
@@ -251,15 +241,15 @@
         <section class="content">
           <p id="dataExplanation" data-l10n-id="dataConnectionInfo">Some text here</p>
         </section>
-        <article data-type="list">
-          <ul data-type="list">
+        <article data-type="nav-list">
+          <ul>
             <li class="forward">
-              <a id='enable-data' class="menu-item">
+              <a id='enable-data' class="nav-item">
                 <p data-l10n-id="enableData"></p>
               </a>
             </li>
             <li class="forward">
-              <a id='disable-data' class="menu-item">
+              <a id='disable-data' class="nav-item">
                 <p data-l10n-id="disableData"></p>
               </a>
             </li>
@@ -270,14 +260,14 @@
         <div id="wifi-wrapper" role="main">
           <article id="networks">
           </article>
-          <ul data-type="list">
+          <ul data-type="nav-list">
             <li id="join-hidden-button">
-              <a class="menu-item">
+              <a class="nav-item">
                 <p data-l10n-id="join-hidden-button"></p>
               </a>
             </li>
             <li class="forward">
-              <a class="menu-item">
+              <a class="nav-item">
                 <p data-l10n-id="navbar-next"></p>
               </a>
             </li>
@@ -364,34 +354,34 @@
             <li>
               <p id="tz-region-label" data-l10n-id="region"></p>
               <select id="tz-region" class="invisible"></select>
-              <button id="tz-region-button" class="change icon icon-dialog" data-l10n-id="change" type="button">
+              <button id="tz-region-button" class="change icon" data-l10n-id="change" type="button">
               </button>
             </li>
             <li>
               <p id="tz-city-label" data-l10n-id="city"></p>
               <select id="tz-city" class="invisible"></select>
-              <button id="tz-city-button" class="change icon icon-dialog" data-l10n-id="change" type="button" aria-describedby="tz-city-label">
+              <button id="tz-city-button" class="change icon" data-l10n-id="change" type="button" aria-describedby="tz-city-label">
               </button>
             </li>
             <!-- date/time -->
             <li>
               <p id="date-configuration-label" data-l10n-id="date"></p>
               <input id="date-configuration" class="invisible" type="date" min="1970-1-1" max="2037-12-31"></input>
-              <button id="date-configuration-button" class="change icon icon-dialog" data-l10n-id="change">
+              <button id="date-configuration-button" class="change icon" data-l10n-id="change">
               </button>
             </li>
             <li>
               <p id="time-configuration-label" data-l10n-id="time"></p>
               <input id="time-configuration" class="invisible" type="time"></input>
-              <button id="time-configuration-button" class="change icon icon-dialog" data-l10n-id="change" type="button">
+              <button id="time-configuration-button" class="change icon" data-l10n-id="change" type="button">
               </button>
             </li>
           </ul>
         </form>
-        <article data-type="list">
+        <article data-type="nav-list">
           <ul>
             <li class="forward">
-              <a class="menu-item">
+              <a class="nav-item">
                 <p data-l10n-id="navbar-next"></p>
               </a>
             </li>
@@ -405,15 +395,15 @@
           <p id="geolocationInfoMore" data-l10n-id="geolocationInfoMore">Some text here</p>
           <p><a href="#about-your-privacy" data-l10n-id="aboutYourPrivacy">Your Privacy</a></p>
         </section>
-        <article data-type="list">
+        <article data-type="nav-list">
           <ul>
             <li class="forward">
-              <a id='enable-geolocation' class="menu-item">
+              <a id='enable-geolocation' class="nav-item">
                 <p data-l10n-id="enableGeolocation"></p>
               </a>
             </li>
             <li class="forward">
-              <a id='disable-geolocation' class="menu-item">
+              <a id='disable-geolocation' class="nav-item">
                 <p data-l10n-id="disableGeolocation"></p>
               </a>
             </li>
@@ -469,10 +459,10 @@
             </li>
           </ul>
         </article>
-        <article data-type="list">
+        <article data-type="nav-list">
           <ul>
             <li class="forward">
-              <a class="menu-item">
+              <a class="nav-item">
                 <p data-l10n-id="navbar-next"></p>
               </a>
             </li>
@@ -489,15 +479,15 @@
           like the Firefox Marketplace.
         </p>
 
-        <article data-type="list">
+        <article data-type="nav-list">
           <ul>
             <li class="forward">
-              <a class="menu-item">
+              <a class="nav-item">
                 <p id="fxa-create-account" data-l10n-id="fxa-create-account-or-sign-in"></p>
               </a>
             </li>
             <li class="forward">
-              <a class="menu-item">
+              <a class="nav-item">
                 <p data-l10n-id="fxa-no"></p>
               </a>
             </li>
@@ -608,15 +598,15 @@
             Email successfully added!
           </p>
         </section>
-        <article data-type="list">
+        <article data-type="nav-list">
           <ul>
             <li class="forward">
-              <a class="menu-item">
+              <a class="nav-item">
                 <p data-l10n-id="join-community"></p>
               </a>
             </li>
             <li class="forward">
-              <a class="menu-item">
+              <a class="nav-item">
                 <p data-l10n-id="dont-join-community"></p>
               </a>
             </li>
@@ -649,18 +639,20 @@
             <a href='#sharing-performance-data' data-l10n-id="learnMore">Learn more.</a>
           </p>
         </section>
-        <ul data-type="list">
-          <li class="forward">
-            <a class="menu-item" id="share-performance" name="debug.performance_data.shared">
-              <p data-l10n-id="send-data"></p>
-            </a>
-          </li>
-          <li class="forward">
-            <a class="menu-item">
-              <p data-l10n-id="dont-send-data"></p>
-            </a>
-          </li>
-        </ul>
+        <article data-type="nav-list">
+          <ul>
+            <li class="forward">
+              <a class="nav-item" id="share-performance" name="debug.performance_data.shared">
+                <p data-l10n-id="send-data"></p>
+              </a>
+            </li>
+            <li class="forward">
+              <a class="nav-item">
+                <p data-l10n-id="dont-send-data"></p>
+              </a>
+            </li>
+          </ul>
+        </article>
 
       </section>
     </article>

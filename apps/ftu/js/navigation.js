@@ -162,25 +162,8 @@ var Navigation = {
     window.open(href, '', 'dialog');
   },
 
-  // Compute the position of the navigation progress bar
-  getProgressBarState: function n_getProgressBarState() {
-    // Initial step
-    if (this.currentStep == 1) {
-      return 1;
-    }
-
-    var progressBarPosition = this.currentStep - (this.skipDataScreen ? 1 : 0);
-
-    if (progressBarPosition > this.totalSteps) {
-      return this.totalSteps;
-    }
-
-    return progressBarPosition;
-  },
-
   handleEvent: function n_handleEvent(event) {
     var actualHash = window.location.hash;
-    UIManager.progressBar.classList.remove('hidden');
     switch (actualHash) {
       case '#languages':
         UIManager.mainTitle.innerHTML = _('language');
@@ -240,11 +223,9 @@ var Navigation = {
       case '#about-your-rights':
       case '#about-your-privacy':
         UIManager.mainTitle.innerHTML = _('aboutBrowser');
-        UIManager.progressBar.classList.add('hidden');
         break;
       case '#sharing-performance-data':
         UIManager.mainTitle.innerHTML = _('aboutBrowser');
-        UIManager.progressBar.classList.add('hidden');
         var linkTelemetry = document.getElementById('external-link-telemetry');
         navigator.mozL10n.localize(linkTelemetry, 'learn-more-telemetry', {
           link: getLocalizedLink('learn-more-telemetry')
@@ -255,18 +236,6 @@ var Navigation = {
         });
         break;
     }
-
-    var progressBarState = this.getProgressBarState();
-    UIManager.progressBarState.style.width =
-      'calc(100% / ' + this.totalSteps + ')';
-    UIManager.progressBarState.style.transform =
-      'translateX(' + ((progressBarState - 1) * 100) + '%)';
-    UIManager.progressBar.setAttribute('aria-valuetext', _('progressbar', {
-      step: progressBarState,
-      total: this.totalSteps
-    }));
-    UIManager.progressBar.setAttribute('aria-valuemin', 1);
-    UIManager.progressBar.setAttribute('aria-valuemax', this.totalSteps);
 
     // If SIM card is mandatory, we hide the button skip
     if (this.simMandatory) {
