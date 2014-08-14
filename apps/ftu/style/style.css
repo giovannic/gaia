@@ -16,9 +16,9 @@ p {
 a {
   font-size: 1.35rem;
   line-height: 1.8rem;
-  color: #000;
+  color: dodgerblue;
   text-decoration: underline;
-  font-weight: 500;
+  font-weight: 200;
 }
 
 a.disabled {
@@ -796,6 +796,10 @@ aside.connecting {
   margin-bottom: 3rem;
   display: block;
   overflow: hidden;
+  position: absolute;
+  bottom: 0;
+  left: 2rem;
+  right: 2rem;
 }
 
 #welcome_browser #browser_os_privacy_links a {
@@ -851,18 +855,14 @@ aside.connecting {
   line-height: 1.8rem;
 }
 
-
-#browser_privacy p a {
-  font-size: 1.35rem;
-  line-height: 1.8rem;
-  color: #000;
-  text-decoration: underline;
-  font-weight: 500;
-}
-
 #browser_privacy input {
   margin-bottom: 2rem;
   -moz-box-sizing: border-box;
+}
+
+#browser_privacy #external-link-privacy {
+  bottom: 0;
+  position: absolute;
 }
 
 .invisible {
