@@ -771,7 +771,7 @@ aside.connecting {
   margin: 0;
   color: #000;
   padding: 0 0 2rem 0;
-  font-size: 1.35rem;
+  font-size: 18px;
   line-height: 1.8rem;
 }
 
@@ -852,6 +852,14 @@ aside.connecting {
   color: #000;
   padding: 0 0 2rem 0;
   font-size: 1.35rem;
+  line-height: 1.8rem;
+}
+
+#browser_privacy > p.content {
+  margin: 0;
+  color: #000;
+  padding: 0 0 2rem 0;
+  font-size: 18px;
   line-height: 1.8rem;
 }
 
@@ -1065,12 +1073,18 @@ i.hack-first-child {
 
 #data_3g .content p,
 #geolocation .content p {
-  font-size: 1.4rem;
+  font-size: 18px;
 }
 
 #data_3g .pack-switch,
 #geolocation .pack-switch {
   height: 100%;
+}
+
+#geolocation #privacy-link {
+  bottom:0;
+  position: absolute;
+  left: 1.5rem;
 }
 
 /*
