@@ -21,6 +21,10 @@ a {
   font-weight: 500;
 }
 
+a.disabled {
+    opacity: 0.2;
+}
+
 /*
   Areas in our app
 */

@@ -76,7 +76,11 @@ var Navigation = {
     Array.prototype.forEach.call(
       document.getElementsByClassName('forward'),
       function(forward){
-        forward.addEventListener('click', Navigation.forward.bind(Navigation));
+        forward.addEventListener(
+          'click',
+          Navigation.forward.bind(Navigation),
+          true
+        );
       }
     );
 
@@ -120,6 +124,9 @@ var Navigation = {
 
   forward: function n_forward(event) {
     var self = this;
+    if (event.target.classList.contains('disabled')) {
+      return;
+    }
     var goToStepForward = function() {
       self.previousStep = self.currentStep;
       self.currentStep++;

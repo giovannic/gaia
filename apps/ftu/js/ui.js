@@ -104,6 +104,7 @@ var UIManager = {
     // Browser privacy newsletter subscription
     'newsletter-form',
     'newsletter-input',
+    'newsletter-submit',
     'newsletter-success-screen',
     'offline-newsletter-error-dialog',
     'invalid-email-error-dialog'
@@ -189,19 +190,12 @@ var UIManager = {
       });
     });
 
-    this.offlineNewsletterErrorDialog
-      .querySelector('button')
-      .addEventListener('click',
-        function offlineDialogClick() {
-          this.offlineNewsletterErrorDialog.classList.remove('visible');
-        }.bind(this));
-
-    this.invalidEmailErrorDialog
-      .querySelector('button')
-      .addEventListener('click',
-        function invalidEmailDialogClick() {
-          this.invalidEmailErrorDialog.classList.remove('visible');
-        }.bind(this));
+    this.newsletterInput.addEventListener('input', function(evt) {
+      var submitClasses = UIManager.newsletterSubmit.classList;
+      if (submitClasses.contains('disabled') === evt.target.checkValidity()){
+        submitClasses.toggle('disabled');
+      }
+    });
 
     var skipTutorialAction = function() {
       // Stop Wifi Manager
@@ -428,6 +422,7 @@ var UIManager = {
     }
     // Update the email
     UIManager.newsletterInput.value = acct.email;
+    UIManager.newsletterSubmit.classList.add('disabled');
     // Update the string
     UIManager.fxaIntro.innerHTML = '';
     navigator.mozL10n.localize(
@@ -445,6 +440,8 @@ var UIManager = {
     console.error('Create FxA Error: ' + JSON.stringify(response));
     // Clean fields
     UIManager.newsletterInput.value = '';
+    UIManager.newsletterSubmit.classList.remove('disabled');
+    // Update the string
     // Reset the field
     navigator.mozL10n.localize(
       UIManager.fxaIntro,
