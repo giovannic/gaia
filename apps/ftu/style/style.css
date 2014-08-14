@@ -360,7 +360,7 @@ gaia-buttons.forward-only .icon-previous {
 }
 
 #networks-list:first-child {
-  padding-top: 0;
+  padding-top: 1.5rem;
 }
 
 #wifi #no-result-container {
@@ -840,7 +840,6 @@ aside.connecting {
   padding: 1.5rem 3rem 0 3rem;
   width: calc(100% - 6rem);
   height: calc(100% - 3.5rem);
-  margin-top: 2rem;
 }
 
 #browser_privacy img {

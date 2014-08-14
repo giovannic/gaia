@@ -422,7 +422,7 @@ var UIManager = {
     }
     // Update the email
     UIManager.newsletterInput.value = acct.email;
-    UIManager.newsletterSubmit.classList.add('disabled');
+    UIManager.newsletterSubmit.classList.remove('disabled');
     // Update the string
     UIManager.fxaIntro.innerHTML = '';
     navigator.mozL10n.localize(
@@ -440,7 +440,7 @@ var UIManager = {
     console.error('Create FxA Error: ' + JSON.stringify(response));
     // Clean fields
     UIManager.newsletterInput.value = '';
-    UIManager.newsletterSubmit.classList.remove('disabled');
+    UIManager.newsletterSubmit.classList.add('disabled');
     // Update the string
     // Reset the field
     navigator.mozL10n.localize(
