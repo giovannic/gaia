@@ -6,3 +6,10 @@
 section[role="region"] > header:first-child a:hover{
     background-color: transparent;
 }
+
+#wifi-refresh-button {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 3.5rem auto;
+    background-image: url('images/refresh.png');
+}

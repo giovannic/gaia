@@ -11,47 +11,38 @@
 */
 var steps = {
   1: {
-    onlyForward: true,
     hash: '#languages',
     requireSIM: false
   },
   2: {
-    onlyForward: false,
     hash: '#data_3g',
     requireSIM: true
   },
   3: {
-    onlyForward: false,
     hash: '#wifi',
     requireSIM: false
   },
   4: {
-    onlyForward: false,
     hash: '#date_and_time',
     requireSIM: false
   },
   5: {
-    onlyForward: false,
     hash: '#geolocation',
     requireSIM: false
   },
   6: {
-    onlyForward: false,
     hash: '#import_contacts',
     requireSIM: false
   },
   7: {
-    onlyForward: false,
     hash: '#firefox_accounts',
     requireSIM: false
   },
   8: {
-    onlyForward: false,
     hash: '#welcome_browser',
     requireSIM: false
   },
   9: {
-    onlyForward: false,
     hash: '#browser_privacy',
     requireSIM: false
   }
@@ -174,11 +165,10 @@ var Navigation = {
     switch (actualHash) {
       case '#languages':
         UIManager.mainTitle.innerHTML = _('language');
+        UIManager.backButton.classList.add("hidden");
         break;
       case '#data_3g':
         UIManager.mainTitle.innerHTML = _('3g');
-        DataMobile.
-          getStatus(UIManager.updateDataConnectionStatus.bind(UIManager));
         break;
       case '#wifi':
         DataMobile.removeSVStatusObserver();
@@ -205,7 +195,7 @@ var Navigation = {
         if (!WifiManager.api) {
           // Desktop
           ImportIntegration.checkImport('enabled');
-          return;
+          break;
         }
 
         fbState = window.navigator.onLine ? 'enabled' : 'disabled';
@@ -254,9 +244,10 @@ var Navigation = {
     }
 
     // Managing options button
-    if (this.currentStep <= numSteps &&
-        steps[this.currentStep].hash !== '#wifi') {
-      UIManager.activationScreen.classList.add('no-options');
+    if (this.currentStep <= numSteps && 
+        (steps[this.currentStep].hash === '#wifi') ===
+          UIManager.activationScreen.classList.contains('no-options')) {
+      UIManager.activationScreen.classList.toggle('no-options');
     }
 
     // Managing nav buttons when coming back from out-of-steps (privacy)
@@ -288,6 +279,9 @@ var Navigation = {
     if (self.currentStep == 1) {
       self.totalSteps = numSteps;
       self.skipDataScreen = false;
+    } else {
+      // Show back button otherwise
+      UIManager.backButton.classList.remove("hidden");
     }
 
     // Retrieve future location
@@ -297,8 +291,6 @@ var Navigation = {
     if (futureLocation.hash === '#wifi') {
       utils.overlay.show(_('scanningNetworks'), 'spinner');
     }
-    
-    
 
     // If SIMcard is mandatory and no SIM, go to message window
     if (this.simMandatory &&
@@ -337,13 +329,13 @@ var Navigation = {
 
     // Do not ask for date if we have connected
     if (futureLocation.hash === '#date_and_time' &&
-       WifiManager.gCurrentNetwork !== null) {
+        navigator.onLine) {
       self.skipStep();
     }
  
     // Do not ask for date if we have connected
     if (futureLocation.hash === '#firefox_accounts' &&
-       WifiManager.gCurrentNetwork === null) {
+        !navigator.onLine) {
       self.skipStep();
     }
     

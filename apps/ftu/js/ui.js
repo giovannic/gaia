@@ -19,6 +19,7 @@ var UIManager = {
     'finish-screen',
     'update-screen',
     'main-title',
+    'back-button',
     // Unlock SIM Screen
     'unlock-sim-screen',
     'unlock-sim-header',
