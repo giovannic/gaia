@@ -193,7 +193,8 @@ var UIManager = {
 
     this.newsletterInput.addEventListener('input', function(evt) {
       var submitClasses = UIManager.newsletterSubmit.classList;
-      if (submitClasses.contains('disabled') === evt.target.checkValidity()){
+      if (submitClasses.contains('disabled') ===
+          (evt.target.checkValidity() && evt.target.value.length !== 0)) {
         submitClasses.toggle('disabled');
       }
     });
@@ -257,50 +258,33 @@ var UIManager = {
   sendNewsletter: function ui_sendNewsletter(callback) {
     var self = this;
     var emailValue = self.newsletterInput.value;
-    if (emailValue === '') {
-      return callback(true);
-    } else {
-      utils.overlay.show(_('email-loading'), 'spinner');
-      if (self.newsletterInput.checkValidity()) {
-        if (window.navigator.onLine) {
-          Basket.send(emailValue, function emailSent(err, data) {
-            if (err) {
-              if (err.code && err.code === Basket.errors.INVALID_EMAIL) {
-                ConfirmDialog.show(_('invalid-email-dialog-title'),
-                                   _('invalid-email-dialog-text'),
-                                   {
-                                    title: _('cancel'),
-                                    callback: function ok() {
-                                      ConfirmDialog.hide();
-                                    }
-                                   });
-                utils.overlay.hide();
-                return callback(false);
-              } else {
-                Basket.store(emailValue);
-              }
-            }
+    utils.overlay.show(_('email-loading'), 'spinner');
+    if (window.navigator.onLine) {
+      Basket.send(emailValue, function emailSent(err, data) {
+        if (err) {
+          if (err.code && err.code === Basket.errors.INVALID_EMAIL) {
+            ConfirmDialog.show(_('invalid-email-dialog-title'),
+                               _('invalid-email-dialog-text'),
+                               {
+                                title: _('cancel'),
+                                callback: function ok() {
+                                  ConfirmDialog.hide();
+                                }
+                               });
             utils.overlay.hide();
-            return callback(true);
-          });
-        } else {
-          Basket.store(emailValue, function stored(errorStoring) {
-            utils.overlay.hide();
-            return callback(!errorStoring);
-          });
+            return callback(false);
+          } else {
+            Basket.store(emailValue);
+          }
         }
-      } else {
         utils.overlay.hide();
-        ConfirmDialog.show(_('invalid-email-dialog-title'),
-                           _('invalid-email-dialog-text'),
-                           {
-                            title: _('cancel'),
-                            callback: function ok() {
-                              ConfirmDialog.hide();
-                            }
-                           });
-        return callback(false);
-      }
+        return callback(true);
+      });
+    } else {
+      Basket.store(emailValue, function stored(errorStoring) {
+        utils.overlay.hide();
+        return callback(!errorStoring);
+      });
     }
   },
 

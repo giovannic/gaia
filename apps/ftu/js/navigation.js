@@ -115,7 +115,7 @@ var Navigation = {
 
   forward: function n_forward(event) {
     var self = this;
-    if (event.target.classList.contains('disabled')) {
+    if (event.target.parentElement.classList.contains('disabled')) {
       return;
     }
     var goToStepForward = function() {
