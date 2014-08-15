@@ -1,55 +1,4 @@
-gaia-menu {
-  left: 0;
-  right: 0;
-  bottom: 0;
-  position: absolute;
-}
-
-gaia-menu a {
-  display: block;
-  text-decoration: none;
-  outline: 0 none;
-  color: #000;
-  box-sizing: border-box;
-  height: 6rem;
-  font-size: 1.9rem;
-  line-height: 6rem;
-  padding: 0 3rem;
-  width: 100%;
-  border-bottom: 0.1rem solid #E7E7E7;
-  margin: 0;
-  position: relative;
-  font-weight: 400;
-}
-
-gaia-menu ul {
-  list-style: none;
-  padding-left:0;
-}
-
-li > a.menu-item:after {
-    content: "";
-    width: 3rem;
-    height: 3rem;
-    position: absolute;
-    top: calc(50% - 1.5rem);
-    right: 0.5rem;
-    left: 25rem;
-    background: url('/shared/style/buttons/images/next.png') no-repeat scroll center center / 3rem auto transparent;
-}
-
-a.menu-item:before {
-    left: 0;
-    height: 100%;
-    line-height: 6rem;
-    color: #657073;
-}
-
-[data-type="nav-list"] li > a {
-    padding: 0 1.5rem;
-}
-
-[data-type="nav-list"] li > a {
+[data-type="nav-list"] li > a, [data-type="nav-list"] li > p {
     text-decoration: none;
     color: #333;
     display: block;
@@ -58,7 +7,7 @@ a.menu-item:before {
     border: medium none;
     outline: medium none;
     font-size: 20px;
-    font-weight: 300;
+    padding: 0 1.5rem;
 }
 
 [data-type="nav-list"] li:first-child {
@@ -106,11 +55,13 @@ a.nav-item:before {
 [data-type="nav-list"] li p:only-child, [data-type="nav-list"] li p:first-of-type:last-of-type {
     line-height: 4rem;
 }
+
 [data-type="nav-list"] li p:first-of-type {
     line-height: 2.2rem;
     color: #333;
     padding: 1rem 0 0;
 }
+
 [data-type="nav-list"] li p {
     white-space: nowrap;
     overflow: hidden;
