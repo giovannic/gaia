@@ -165,7 +165,7 @@ var Navigation = {
     switch (actualHash) {
       case '#languages':
         UIManager.mainTitle.innerHTML = _('language');
-        UIManager.backButton.classList.add("hidden");
+        UIManager.backButton.classList.add('hidden');
         break;
       case '#data_3g':
         UIManager.mainTitle.innerHTML = _('3g');
@@ -244,7 +244,7 @@ var Navigation = {
     }
 
     // Managing options button
-    if (this.currentStep <= numSteps && 
+    if (this.currentStep <= numSteps &&
         (steps[this.currentStep].hash === '#wifi') ===
           UIManager.activationScreen.classList.contains('no-options')) {
       UIManager.activationScreen.classList.toggle('no-options');
@@ -281,7 +281,7 @@ var Navigation = {
       self.skipDataScreen = false;
     } else {
       // Show back button otherwise
-      UIManager.backButton.classList.remove("hidden");
+      UIManager.backButton.classList.remove('hidden');
     }
 
     // Retrieve future location
