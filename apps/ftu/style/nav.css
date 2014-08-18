@@ -1,4 +1,4 @@
-[data-type="nav-list"] li > a, [data-type="nav-list"] li > p {
+[data-type="nav-list"] li > a, [data-type="nav-list"] li > div {
     text-decoration: none;
     color: #333;
     display: block;

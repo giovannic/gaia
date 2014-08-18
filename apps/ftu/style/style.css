@@ -674,10 +674,6 @@ aside.connecting {
   border-bottom: none;
 }
 
-#import_contacts #fb_import, #import_contacts #fb_after_import2 {
-  margin-top: 1rem;
-}
-
 /* Needed due to the .icon class which is overriding this property */
 #import_contacts button:active {
   background-color: #008aaa !important;
