@@ -86,3 +86,10 @@ a.nav-item:before {
 #wifi [data-type="nav-list"] li:first-child {
     border-top: none;
 }
+
+[data-type="nav-list"] aside {
+    float: right;
+    margin: 0 1.5rem 0 0;
+    height: 100%;
+    position: relative;
+}
