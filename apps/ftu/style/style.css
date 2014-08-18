@@ -713,6 +713,36 @@ aside.connecting {
   background-image: url('images/gmail_icon.png');
 }
 
+#import_contacts div.nav-item:after {
+  content: "";
+  width: 3rem;
+  height: 3rem;
+  position: absolute;
+  top: calc(50% - 1.5rem);
+  right: 0.5rem;
+  background-repeat: no-repeat;
+}
+
+#import_contacts li div.icon-gmail:after {
+  background-image: url('images/gmail_icon.png');
+}
+
+#import_contacts li div.icon-sim:after {
+  background-image: url('images/import_sim.png');
+}
+
+#import_contacts li div.icon-sd:after {
+  background-image: url('images/import_sd.png');
+}
+
+#import_contacts li div.icon-wlive:after {
+  background-image: url('images/outlook_icon.png');
+}
+
+#import_contacts li div.icon-fb:after {
+  background-image: url('images/f_logo.png');
+}
+
 #import_contacts li button.icon {
   padding-left: 4rem;
 }
