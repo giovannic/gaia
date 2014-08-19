@@ -174,6 +174,8 @@ var UIManager = {
 
     this.fxaCreateAccount.addEventListener('click', this);
 
+    this.newsletterSubmit.addEventListener('click', this);
+
     // Prevent form submit in case something tries to send it
     this.timeForm.addEventListener('submit', function(event) {
       event.preventDefault();
@@ -195,7 +197,7 @@ var UIManager = {
       var submitClasses = UIManager.newsletterSubmit.classList;
       if (submitClasses.contains('disabled') ===
           (evt.target.checkValidity() && evt.target.value.length !== 0)) {
-        submitClasses.toggle('disabled');
+        UIManager.toggleNewsletter();
       }
     });
 
@@ -373,6 +375,15 @@ var UIManager = {
       case 'fxa-create-account':
         this.createFirefoxAccount();
         break;
+      case 'newsletter-submit':
+        // Try to send Newsletter here
+        UIManager.sendNewsletter(function newsletterSent(result) {
+          if (result) { // sending process ok, we advance
+            UIManager.end();
+          }
+          // error on sending, we stay where we are
+        });
+        break;
       default:
         // wifi selection
         if (event.target.parentNode.id === 'networks-list') {
@@ -407,7 +418,7 @@ var UIManager = {
     }
     // Update the email
     UIManager.newsletterInput.value = acct.email;
-    UIManager.newsletterSubmit.classList.remove('disabled');
+    UIManager.enableNewsletter();
     // Update the string
     UIManager.fxaIntro.innerHTML = '';
     navigator.mozL10n.localize(
@@ -425,7 +436,7 @@ var UIManager = {
     console.error('Create FxA Error: ' + JSON.stringify(response));
     // Clean fields
     UIManager.newsletterInput.value = '';
-    UIManager.newsletterSubmit.classList.add('disabled');
+    UIManager.disableNewsletter();
     // Update the string
     // Reset the field
     navigator.mozL10n.localize(
@@ -516,6 +527,29 @@ var UIManager = {
     timeLabel.innerHTML = f.localeFormat(now, _('shortTimeFormat'));
   },
 
+  enableNewsletter: function ui_enableNewsletter() {
+    var button = this.newsletterSubmit;
+    button.classList.remove('disabled');
+    button.addEventListener('click', this.handleEvent);
+  },
+
+  disableNewsletter: function ui_disableNewsletter() {
+    var button = this.newsletterSubmit;
+    button.classList.add('disabled');
+    button.removeEventListener('click', this.handleEvent);
+  },
+
+  toggleNewsletter: function ui_toggleNewsletter() {
+    var button = this.newsletterSubmit;
+    button.classList.contains('disabled') ?
+      this.enableNewsletter() : this.disableNewsletter();
+  },
+
+  end: function ui_end() {
+    this.activationScreen.classList.remove('show');
+    this.finishScreen.classList.add('show');
+    this.hideActivationScreenFromScreenReader();
+  }
 };
 
 function toCamelCase(str) {

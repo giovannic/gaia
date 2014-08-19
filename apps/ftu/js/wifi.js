@@ -1,6 +1,7 @@
 /* global utils,
           UIManager,
-          WifiHelper */
+          WifiHelper,
+          Navigation */
 /* exported WifiManager, WifiUI */
 'use strict';
 
@@ -141,6 +142,9 @@ var WifiManager = {
           if (self.networks && self.networks.length) {
             WifiUI.renderNetworks(self.networks);
           }
+          setTimeout(function() {
+            Navigation.forward(event);
+          }, 1000);
         }
       };
     }
@@ -218,9 +222,16 @@ var WifiUI = {
   chooseNetwork: function wui_cn(event) {
     // Retrieve SSID from dataset
     var ssid = event.target.dataset.ssid;
+    var network = WifiManager.getNetwork(ssid);
+
+    //if we are already connected then we can move forward
+    if (WifiHelper.isConnected(network)) {
+      Navigation.forward(event);
+      return;
+    }
 
     // Do we need to type password?
-    if (WifiHelper.isOpen(WifiManager.getNetwork(ssid))) {
+    if (WifiHelper.isOpen(network)) {
       WifiUI.connect(ssid);
       return;
     }

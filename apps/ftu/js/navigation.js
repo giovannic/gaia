@@ -115,23 +115,11 @@ var Navigation = {
 
   forward: function n_forward(event) {
     var self = this;
-    if (event.target.parentElement.classList.contains('disabled')) {
-      return;
-    }
     var goToStepForward = function() {
       self.previousStep = self.currentStep;
       self.currentStep++;
       if (self.currentStep > numSteps) {
-        // Try to send Newsletter here
-        UIManager.sendNewsletter(function newsletterSent(result) {
-          if (result) { // sending process ok, we advance
-            UIManager.activationScreen.classList.remove('show');
-            UIManager.finishScreen.classList.add('show');
-            UIManager.hideActivationScreenFromScreenReader();
-          } else { // error on sending, we stay where we are
-            self.currentStep--;
-          }
-        });
+        UIManager.end();
         return;
       }
       self.manageStep();

@@ -21,7 +21,7 @@ a {
   font-weight: 200;
 }
 
-a.disabled {
+.disabled {
     opacity: 0.2;
 }
 
@@ -355,7 +355,7 @@ gaia-buttons.forward-only .icon-previous {
 */
 
 #wifi-wrapper {
-  top: -1rem;
+  top: 0;
   bottom: 5.5rem;
 }
 
@@ -364,8 +364,8 @@ gaia-buttons.forward-only .icon-previous {
 }
 
 #wifi #no-result-container {
-  position: absolute;
-  background: url('images/wifi_icon.png') no-repeat fixed center / 23.6rem;
+  background: url('images/wifi_icon.png') no-repeat;
+  background-position: center center;
   height: 100%;
   width: 100%;
   pointer-events: none;
@@ -376,10 +376,11 @@ gaia-buttons.forward-only .icon-previous {
   line-height: 3rem;
   position: relative;
   top: 50%;
-  border-top: .1rem solid rgba(96,96,96,.5);
+  border-bottom: .1rem solid #E7E7E7;
   padding: 0;
   width: 27rem;
-  margin: -3rem auto;
+  height: 17rem;
+  margin: 0 auto;
   color: #606060;
   font-weight: 300;
   font-size: 2.26rem;
