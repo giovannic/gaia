@@ -377,6 +377,9 @@ var UIManager = {
         break;
       case 'newsletter-submit':
         // Try to send Newsletter here
+        if (event.target.classList.contains('disabled')) {
+          break;
+        }
         UIManager.sendNewsletter(function newsletterSent(result) {
           if (result) { // sending process ok, we advance
             UIManager.end();
@@ -530,13 +533,11 @@ var UIManager = {
   enableNewsletter: function ui_enableNewsletter() {
     var button = this.newsletterSubmit;
     button.classList.remove('disabled');
-    button.addEventListener('click', this.handleEvent);
   },
 
   disableNewsletter: function ui_disableNewsletter() {
     var button = this.newsletterSubmit;
     button.classList.add('disabled');
-    button.removeEventListener('click', this.handleEvent);
   },
 
   toggleNewsletter: function ui_toggleNewsletter() {
