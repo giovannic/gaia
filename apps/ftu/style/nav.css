@@ -93,3 +93,16 @@ a.nav-item:before {
     height: 100%;
     position: relative;
 }
+
+/*RTL adjustments*/
+html[dir="rtl"] a.nav-item:after {
+    right: auto;
+    left: -0.5rem;
+    transform: rotate(180deg);
+}
+
+html[dir="rtl"] aside {
+    float: left;
+    margin: 0 0 0 1.5rem;
+}
+
