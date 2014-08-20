@@ -822,7 +822,6 @@ html[dir="rtl"] #import_contacts div.nav-item:after {
   display: block;
   overflow: scroll;
   position: absolute;
-  bottom: 0;
   left: 2rem;
   right: 2rem;
 }
