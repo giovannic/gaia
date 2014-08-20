@@ -308,17 +308,9 @@ gaia-buttons.forward-only .icon-previous {
   pointer-events: none;
 }
 
-#wifi li {
-  padding: 0 1.5rem;
-  left: -1rem;
-}
-
 #wifi ul {
   padding-left: 1.5rem;
-}
-
-html[dir='rtl'] #wifi ul {
-  padding-right: 0;
+  padding-right: 1.5rem;
 }
 
 #wifi li.connected p {
@@ -795,16 +787,12 @@ html[dir="rtl"] #import_contacts div.nav-item:after {
 /*
   About your rights
 */
-#welcome_browser {
+#welcome_browser_content {
   padding: 1.5rem 3rem 0 3rem;
   width: calc(100% - 6rem);
 }
 
-#welcome_browser ul {
-  padding-left: 0;
-}
-
-#form_share_statistics > p, #welcome_browser > p {
+#form_share_statistics > p, #welcome_browser_content > p {
   margin: 0;
   color: #000;
   padding: 0 0 2rem 0;
@@ -820,19 +808,19 @@ html[dir="rtl"] #import_contacts div.nav-item:after {
   width: 20rem;
 }
 
-#welcome_browser label {
+#welcome_browser_content label {
   position: absolute;
   margin: -1.5rem 0 0 -1.5rem;
 }
 
-#welcome_browser section p a {
+#welcome_browser_content section p a {
   margin-left: 0.3rem;
 }
 
 #welcome_browser #browser_os_privacy_links {
   margin-bottom: 3rem;
   display: block;
-  overflow: hidden;
+  overflow: scroll;
   position: absolute;
   bottom: 0;
   left: 2rem;
@@ -873,17 +861,16 @@ html[dir="rtl"] #import_contacts div.nav-item:after {
   Privacy policies
 */
 
-#browser_privacy {
+#browser_privacy_content {
   padding: 1.5rem 3rem 0 3rem;
   width: calc(100% - 6rem);
-  height: calc(100% - 3.5rem);
 }
 
-#browser_privacy img {
+#browser_privacy_content img {
   vertical-align: middle;
 }
 
-#browser_privacy > p {
+#browser_privacy_content > p {
   margin: 0;
   color: #000;
   padding: 0 0 2rem 0;
@@ -891,7 +878,7 @@ html[dir="rtl"] #import_contacts div.nav-item:after {
   line-height: 1.8rem;
 }
 
-#browser_privacy > p.content {
+#browser_privacy_content > p.content {
   margin: 0;
   color: #000;
   padding: 0 0 2rem 0;
@@ -902,11 +889,6 @@ html[dir="rtl"] #import_contacts div.nav-item:after {
 #browser_privacy input {
   margin-bottom: 2rem;
   -moz-box-sizing: border-box;
-}
-
-#browser_privacy #external-link-privacy {
-  bottom: 0;
-  position: absolute;
 }
 
 .invisible {
