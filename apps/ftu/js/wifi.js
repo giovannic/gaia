@@ -142,8 +142,14 @@ var WifiManager = {
           if (self.networks && self.networks.length) {
             WifiUI.renderNetworks(self.networks);
           }
+          //we set a timeout so that the user can see
+          //that they're connected
           setTimeout(function() {
-            Navigation.forward(event);
+            //if the user hasn't lost patience and jumped ahead
+            //we will move on
+            if (window.location.hash === '#wifi') {
+              Navigation.forward(event);
+            }
           }, 1000);
         }
       };
@@ -301,15 +307,12 @@ var WifiUI = {
   renderNetworks: function wui_rn(networks) {
     var networksDOM = document.getElementById('networks');
     networksDOM.innerHTML = '';
-    var networksList;
+    var noResultContainer = document.getElementById('no-result-container');
     if (!networks) {
-      var noResult = '<div id="no-result-container">' +
-                     '  <div id="no-result-message">' +
-                     '    <p>' + _('noWifiFound3') + '</p>' +
-                     '  </div>' +
-                     '</div>';
-      networksDOM.innerHTML = noResult;
+      noResultContainer.classList.remove('disabled');
     } else {
+      noResultContainer.classList.add('disabled');
+      var networksList;
       networksList = document.createElement('ul');
       networksList.id = 'networks-list';
       networksList.setAttribute('role', 'listbox');
