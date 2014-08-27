@@ -116,18 +116,13 @@ var LanguageManager = {
         bdo.textContent = languages[lang];
         p.appendChild(bdo);
 
-        var label = document.createElement('a');
-        label.classList.add('nav-item');
-        label.value = lang;
-        //label.classList.add('pack-radio');
-        //label.appendChild(input);
-        label.appendChild(span);
-        label.appendChild(p);
-
         var li = document.createElement('li');
+        li.value = lang;
+        li.appendChild(span);
+        li.appendChild(p);
         li.classList.add('forward');
+        li.classList.add('nav-item');
         li.addEventListener('click', me.onLanguageSelection.bind(me, lang));
-        li.appendChild(label);
         container.appendChild(li);
       }
     });

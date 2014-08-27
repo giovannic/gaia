@@ -372,16 +372,14 @@ var WifiUI = {
           // Update list of shown netwoks
           networksShown.push(network.ssid);
           // Append the elements to link
-          link.setAttribute('id', network.ssid);
-          link.setAttribute('role', 'option');
-          link.setAttribute('aria-live', true);
-          link.setAttribute('aria-relevant', 'text');
-          link.classList.add('nav-item');
-          link.appendChild(icon);
-          link.appendChild(ssidp);
-          link.appendChild(small);
-          // Add link to the list element
-          li.appendChild(link);
+          li.setAttribute('id', network.ssid);
+          li.setAttribute('role', 'option');
+          li.setAttribute('aria-live', true);
+          li.setAttribute('aria-relevant', 'text');
+          li.classList.add('nav-item');
+          li.appendChild(icon);
+          li.appendChild(ssidp);
+          li.appendChild(small);
           // Append to DOM
           if (WifiHelper.isConnected(network)) {
             networksList.insertBefore(li, networksList.firstChild);

@@ -317,19 +317,6 @@ gaia-buttons.forward-only .icon-previous {
   color: #00AACC;
 }
 
-#wifi li:after {
-  content: "";
-  transition: opacity 0.2s ease;
-  background: #b1f1ff;
-  opacity: 0;
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 0;
-}
-
 #wifi p[data-security-level]{
   font-size: 15px;
 }
@@ -726,23 +713,23 @@ html[dir="rtl"] #import_contacts div.nav-item:after {
     left: 0.5rem;
 }
 
-#import_contacts li div.icon-gmail:after {
+#import_contacts .icon-gmail:after {
   background-image: url('images/gmail_icon.png');
 }
 
-#import_contacts li div.icon-sim:after {
+#import_contacts .icon-sim:after {
   background-image: url('images/import_sim.png');
 }
 
-#import_contacts li div.icon-sd:after {
+#import_contacts .icon-sd:after {
   background-image: url('images/import_sd.png');
 }
 
-#import_contacts li div.icon-wlive:after {
+#import_contacts .icon-wlive:after {
   background-image: url('images/outlook_icon.png');
 }
 
-#import_contacts li div.icon-fb:after {
+#import_contacts .icon-fb:after {
   background-image: url('images/f_logo.png');
 }
 
