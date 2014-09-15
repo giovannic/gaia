@@ -21,8 +21,10 @@ marionette('First Time Use >', function() {
     // finished, and that the panel is displayed.
     client.helper.waitForElement(panel_id);
     if (button_id) {
+      console.log('waiting for ' + button_id);
       var button = client.helper.waitForElement(button_id);
-      button.click();
+      console.log('clicking ' + button_id);
+      button.tap();
     }
   };
 
@@ -32,14 +34,14 @@ marionette('First Time Use >', function() {
 
   test('FTU click thru', function() {
     client.apps.switchToApp(FTU);
-    clickThruPanel('#languages', '#forward');
-    clickThruPanel('#wifi', '#forward');
-    clickThruPanel('#date_and_time', '#forward');
-    clickThruPanel('#geolocation', '#forward');
-    clickThruPanel('#import_contacts', '#forward');
-    clickThruPanel('#firefox_accounts', '#forward');
-    clickThruPanel('#welcome_browser', '#forward');
-    clickThruPanel('#browser_privacy', '#forward');
+    clickThruPanel('#languages', '#languages .nav-item');
+    clickThruPanel('#wifi', '#wifi .forward');
+    clickThruPanel('#date_and_time', '#date_and_time .forward');
+    clickThruPanel('#geolocation', '#disable-geolocation');
+    clickThruPanel('#import_contacts', '#import_contacts .forward');
+    clickThruPanel('#firefox_accounts', '#fxa-wo-account li.forward');
+    clickThruPanel('#welcome_browser', '#welcome_brower .forward');
+    clickThruPanel('#browser_privacy', '#browser_privacy .forward');
     clickThruPanel('#finish-screen', undefined);
   });
 
