@@ -11,47 +11,38 @@
 */
 var steps = {
   1: {
-    onlyForward: true,
     hash: '#languages',
     requireSIM: false
   },
   2: {
-    onlyForward: false,
     hash: '#data_3g',
     requireSIM: true
   },
   3: {
-    onlyForward: false,
     hash: '#wifi',
     requireSIM: false
   },
   4: {
-    onlyForward: false,
     hash: '#date_and_time',
     requireSIM: false
   },
   5: {
-    onlyForward: false,
     hash: '#geolocation',
     requireSIM: false
   },
   6: {
-    onlyForward: false,
     hash: '#import_contacts',
     requireSIM: false
   },
   7: {
-    onlyForward: false,
     hash: '#firefox_accounts',
     requireSIM: false
   },
   8: {
-    onlyForward: false,
     hash: '#welcome_browser',
     requireSIM: false
   },
   9: {
-    onlyForward: false,
     hash: '#browser_privacy',
     requireSIM: false
   }
@@ -73,15 +64,29 @@ var Navigation = {
   init: function n_init() {
     _ = navigator.mozL10n.get;
     var settings = navigator.mozSettings;
-    var forward = document.getElementById('forward');
-    var back = document.getElementById('back');
-    forward.addEventListener('click', this.forward.bind(this));
-    back.addEventListener('click', this.back.bind(this));
+    var self = this;
+
+    Array.prototype.forEach.call(
+      document.getElementsByClassName('forward'),
+      function(forward){
+        forward.addEventListener(
+          'click',
+          Navigation.forward.bind(Navigation),
+          true
+        );
+      }
+    );
+
+    Array.prototype.forEach.call(
+      document.getElementsByClassName('back'),
+      function(back){
+        back.addEventListener('click', Navigation.back.bind(Navigation));
+      }
+    );
+
     window.addEventListener('hashchange', this);
     UIManager.activationScreen.addEventListener('click',
         this.handleExternalLinksClick.bind(this));
-
-    var self = this;
 
     var reqSIM =
       settings && settings.createLock().get('ftu.sim.mandatory') || {};
@@ -123,16 +128,7 @@ var Navigation = {
       self.previousStep = self.currentStep;
       self.currentStep++;
       if (self.currentStep > numSteps) {
-        // Try to send Newsletter here
-        UIManager.sendNewsletter(function newsletterSent(result) {
-          if (result) { // sending process ok, we advance
-            UIManager.activationScreen.classList.remove('show');
-            UIManager.finishScreen.classList.add('show');
-            UIManager.hideActivationScreenFromScreenReader();
-          } else { // error on sending, we stay where we are
-            self.currentStep--;
-          }
-        });
+        UIManager.end();
         return;
       }
       self.manageStep();
@@ -177,20 +173,15 @@ var Navigation = {
     switch (actualHash) {
       case '#languages':
         UIManager.mainTitle.innerHTML = _('language');
+        UIManager.backButton.classList.add('hidden');
         break;
       case '#data_3g':
         UIManager.mainTitle.innerHTML = _('3g');
-        DataMobile.
-          getStatus(UIManager.updateDataConnectionStatus.bind(UIManager));
         break;
       case '#wifi':
         DataMobile.removeSVStatusObserver();
         UIManager.mainTitle.innerHTML = _('selectNetwork');
         UIManager.activationScreen.classList.remove('no-options');
-        if (UIManager.navBar.classList.contains('secondary-menu')) {
-          UIManager.navBar.classList.remove('secondary-menu');
-          return;
-        }
 
         // This might seem like an odd place to call UIManager.initTZ, but
         // there's a reason for it. initTZ tries to determine the timezone
@@ -260,11 +251,9 @@ var Navigation = {
       case '#about-your-rights':
       case '#about-your-privacy':
         UIManager.mainTitle.innerHTML = _('aboutBrowser');
-        UIManager.navBar.classList.add('back-only');
         break;
       case '#sharing-performance-data':
         UIManager.mainTitle.innerHTML = _('aboutBrowser');
-        UIManager.navBar.classList.add('back-only');
         var linkTelemetry = document.getElementById('external-link-telemetry');
         navigator.mozL10n.localize(linkTelemetry, 'learn-more-telemetry', {
           link: getLocalizedLink('learn-more-telemetry')
@@ -294,7 +283,6 @@ var Navigation = {
     // Managing nav buttons when coming back from out-of-steps (privacy)
     if (this.currentStep <= numSteps &&
         steps[this.currentStep].hash === actualHash) {
-      UIManager.navBar.classList.remove('back-only');
     }
   },
 
@@ -342,6 +330,9 @@ var Navigation = {
     if (self.currentStep == 1) {
       self.totalSteps = numSteps;
       self.skipMobileDataScreen = false;
+    } else {
+      // Show back button otherwise
+      UIManager.backButton.classList.remove('hidden');
     }
 
     // Retrieve future location
@@ -360,30 +351,6 @@ var Navigation = {
       futureLocation.hash = '#SIM_mandatory';
       futureLocation.requireSIM = false;
       futureLocation.onlyBackward = true;
-    }
-
-    // Navigation bar management
-    if (steps[this.currentStep].onlyForward) {
-      UIManager.navBar.classList.add('forward-only');
-    } else {
-      UIManager.navBar.classList.remove('forward-only');
-    }
-    var nextButton = document.getElementById('forward');
-    if (steps[this.currentStep].onlyBackward) {
-      nextButton.setAttribute('disabled', 'disabled');
-    } else {
-      nextButton.removeAttribute('disabled');
-    }
-
-    // Substitute button content on last step
-    if (this.currentStep === numSteps) {
-      nextButton.firstChild.textContent = _('done');
-    } else {
-      nextButton.firstChild.textContent = _('navbar-next');
-    }
-
-    if (futureLocation.hash === '#firefox_accounts') {
-      nextButton.firstChild.textContent = _('skip');
     }
 
     // Change hash to the right location
