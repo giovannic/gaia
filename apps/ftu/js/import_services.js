@@ -34,11 +34,6 @@ var ImportIntegration = {
       document.getElementById('gmail-import-button'));
   },
 
-  get noNetworkMsg() {
-    delete this.noNetworkMsg;
-    return (this.noNetworkMsg = document.getElementById('no-network'));
-  },
-
   get fbImportFeedback() {
     delete this.fbImportFeedback;
     return (this.fbImportFeedback = document.getElementById(
@@ -49,12 +44,6 @@ var ImportIntegration = {
     delete this.fbAfterImport1;
     return (this.fbAfterImport1 = document.getElementById(
       'fb_after_import1'));
-  },
-
-  get fbAfterImport2() {
-    delete this.fbAfterImport2;
-    return (this.fbAfterImport2 = document.getElementById(
-      'fb_after_import2'));
   },
 
   init: function fb_init() {
@@ -90,27 +79,22 @@ var ImportIntegration = {
 
   checkImport: function fb_check(nextState) {
     var fbOption = this.fbImportButton;
-    var noNetMsg = this.noNetworkMsg;
 
     if (nextState === 'disabled') {
       fbOption.setAttribute('disabled', 'disabled');
       this.gmailImportButton.setAttribute('disabled', 'disabled');
       this.liveImportButton.setAttribute('disabled', 'disabled');
-      noNetMsg.classList.remove('hidden');
     }
     else if (nextState === 'enabled') {
       fbOption.removeAttribute('disabled');
       this.gmailImportButton.removeAttribute('disabled');
       this.liveImportButton.removeAttribute('disabled');
-      noNetMsg.classList.add('hidden');
     }
   },
 
   toggleToImportedState: function fb_tg_imported() {
     this.fbImport.classList.add('hidden');
     this.fbAfterImport1.classList.remove('hidden');
-    this.fbAfterImport2.classList.remove('hidden');
-    this.fbImport.parentNode.classList.remove('importOption');
   },
 
   updateContactsNumber: function fb_ucn(cb) {

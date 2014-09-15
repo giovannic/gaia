@@ -2,7 +2,8 @@
           Basket, ConfirmDialog, ScreenLayout,
           DataMobile, SimManager, SdManager,
           Tutorial, TimeManager, WifiManager,
-          WifiUI, WifiHelper, FxAccountsIACHelper  */
+          WifiUI, WifiHelper, FxAccountsIACHelper, 
+          Navigation */
 /* exported UIManager */
 'use strict';
 
@@ -19,8 +20,8 @@ var UIManager = {
     'activation-screen',
     'finish-screen',
     'update-screen',
-    'nav-bar',
     'main-title',
+    'back-button',
     // Unlock SIM Screen
     'unlock-sim-screen',
     'unlock-sim-header',
@@ -70,11 +71,14 @@ var UIManager = {
     // Fxa Intro
     'fxa-create-account',
     'fxa-intro',
+    'fxa-w-account',
+    'fxa-wo-account',
     // Wifi
     'networks',
     'wifi-refresh-button',
     'wifi-join-button',
     'join-hidden-button',
+    'no-result-container',
     // Hidden Wifi
     'hidden-wifi-authentication',
     'hidden-wifi-ssid',
@@ -86,13 +90,15 @@ var UIManager = {
     //Date & Time
     'date-configuration',
     'time-configuration',
-    'date-configuration-label',
-    'time-configuration-label',
+    'date-configuration-button',
+    'time-configuration-button',
     'time-form',
     // 3G
-    'data-connection-switch',
+    'enable-data',
+    'disable-data',
     // Geolocation
-    'geolocation-switch',
+    'enable-geolocation',
+    'disable-geolocation',
     // Tutorial
     'lets-go-button',
     'update-lets-go-button',
@@ -104,6 +110,7 @@ var UIManager = {
     // Browser privacy newsletter subscription
     'newsletter-form',
     'newsletter-input',
+    'newsletter-submit',
     'newsletter-success-screen',
     'offline-newsletter-error-dialog',
     'invalid-email-error-dialog'
@@ -123,8 +130,9 @@ var UIManager = {
     var currentDate = new Date();
     var f = new navigator.mozL10n.DateTimeFormat();
     var format = _('shortTimeFormat');
-    this.timeConfigurationLabel.innerHTML = f.localeFormat(currentDate, format);
-    this.dateConfigurationLabel.innerHTML = currentDate.
+    this.timeConfigurationButton.innerHTML = f.
+      localeFormat(currentDate, format);
+    this.dateConfigurationButton.innerHTML = currentDate.
       toLocaleFormat('%Y-%m-%d');
 
     // Add events to DOM
@@ -137,7 +145,8 @@ var UIManager = {
     this.simInfoBack.addEventListener('click', this);
     this.simInfoForward.addEventListener('click', this);
 
-    this.dataConnectionSwitch.addEventListener('click', this);
+    this.enableData.addEventListener('click', this);
+    this.disableData.addEventListener('click', this);
 
     this.wifiRefreshButton.addEventListener('click', this);
     this.wifiJoinButton.addEventListener('click', this);
@@ -162,9 +171,12 @@ var UIManager = {
     this.timeConfiguration.addEventListener('input', this);
     this.dateConfiguration.addEventListener('input', this);
 
-    this.geolocationSwitch.addEventListener('click', this);
+    this.enableGeolocation.addEventListener('click', this);
+    this.disableGeolocation.addEventListener('click', this);
 
     this.fxaCreateAccount.addEventListener('click', this);
+
+    this.newsletterSubmit.addEventListener('click', this);
 
     // Prevent form submit in case something tries to send it
     this.timeForm.addEventListener('submit', function(event) {
@@ -183,19 +195,13 @@ var UIManager = {
       });
     });
 
-    this.offlineNewsletterErrorDialog
-      .querySelector('button')
-      .addEventListener('click',
-        function offlineDialogClick() {
-          this.offlineNewsletterErrorDialog.classList.remove('visible');
-        }.bind(this));
-
-    this.invalidEmailErrorDialog
-      .querySelector('button')
-      .addEventListener('click',
-        function invalidEmailDialogClick() {
-          this.invalidEmailErrorDialog.classList.remove('visible');
-        }.bind(this));
+    this.newsletterInput.addEventListener('input', function(evt) {
+      var submitClasses = UIManager.newsletterSubmit.classList;
+      if (submitClasses.contains('disabled') ===
+          (evt.target.checkValidity() && evt.target.value.length !== 0)) {
+        UIManager.toggleNewsletter();
+      }
+    });
 
     var skipTutorialAction = function() {
       // Stop Wifi Manager
@@ -347,10 +353,13 @@ var UIManager = {
         window.setTimeout(SdManager.importContacts, 0);
         break;
       // 3G
-      case 'data-connection-switch':
+      case 'enable-data':
         this.dataConnectionChangedByUsr = true;
-        var status = event.target.checked;
-        DataMobile.toggle(status);
+        DataMobile.toggle(true);
+        break;
+      case 'disable-data':
+        this.dataConnectionChangedByUsr = true;
+        DataMobile.toggle(false);
         break;
       // WIFI
       case 'wifi-refresh-button':
@@ -378,8 +387,11 @@ var UIManager = {
         this.setDate();
         break;
       // Geolocation
-      case 'geolocation-switch':
-        this.updateSetting(event.target.name, event.target.checked);
+      case 'enable-geolocation':
+        this.updateSetting('geolocation.enabled', true);
+        break;
+      case 'disable-geolocation':
+        this.updateSetting('geolocation.enabled', false);
         break;
       // Privacy
       case 'share-performance':
@@ -389,9 +401,18 @@ var UIManager = {
       case 'fxa-create-account':
         this.createFirefoxAccount();
         break;
+      case 'newsletter-submit':
+        // Try to send Newsletter here
+        UIManager.sendNewsletter(function newsletterSent(result) {
+          if (result) { // sending process ok, we advance
+            UIManager.end();
+          }
+          // error on sending, we stay where we are
+        });
+        break;
       default:
         // wifi selection
-        if (event.target.parentNode.id === 'networks-list') {
+        if (document.getElementById('networks-list').contains(event.target)) {
           WifiUI.chooseNetwork(event);
         }
         break;
@@ -421,8 +442,11 @@ var UIManager = {
     if (!acct) {
       return;
     }
+    // We were successful and we should move on
+    Navigation.forward();
     // Update the email
     UIManager.newsletterInput.value = acct.email;
+    UIManager.enableNewsletter();
     // Update the string
     UIManager.fxaIntro.innerHTML = '';
     navigator.mozL10n.localize(
@@ -432,14 +456,17 @@ var UIManager = {
         email: acct.email
       }
     );
-    // Disable the button
-    UIManager.fxaCreateAccount.disabled = true;
+    // Change the navigation
+    UIManager.fxaWoAccount.classList.add('hidden');
+    UIManager.fxaWAccount.classList.remove('hidden');
   },
 
   fxaShowError: function ui_fxaShowError(response) {
     console.error('Create FxA Error: ' + JSON.stringify(response));
     // Clean fields
     UIManager.newsletterInput.value = '';
+    UIManager.disableNewsletter();
+    // Update the string
     // Reset the field
     navigator.mozL10n.localize(
       UIManager.fxaIntro,
@@ -484,7 +511,7 @@ var UIManager = {
     var currentTime = now.toLocaleFormat('%H:%M');
     var timeToSet = new Date(currentDate + 'T' + currentTime);
     TimeManager.set(timeToSet);
-    this.dateConfigurationLabel.innerHTML =
+    this.dateConfigurationButton.innerHTML =
       timeToSet.toLocaleFormat('%Y-%m-%d');
   },
 
@@ -492,7 +519,7 @@ var UIManager = {
     if (!!this.lock) {
       return;
     }
-    var timeLabel = document.getElementById('time-configuration-label');
+    var timeLabel = document.getElementById('time-configuration-button');
     // Current time
     var now = new Date();
     // Format: 2012-09-01
@@ -514,27 +541,44 @@ var UIManager = {
     this.timeZoneNeedsConfirmation = !!needsConfirmation;
 
     var utcOffset = timezone.utcOffset;
-    document.getElementById('time_zone_overlay').className =
-      'UTC' + utcOffset.replace(/[+:]/g, '');
+    //document.getElementById('time_zone_overlay').className =
+      //'UTC' + utcOffset.replace(/[+:]/g, '');
     var timezoneTitle = document.getElementById('time-zone-title');
     navigator.mozL10n.localize(timezoneTitle, 'timezoneTitle', {
       utcOffset: utcOffset,
       region: timezone.region,
       city: timezone.city
     });
-    document.getElementById('tz-region-label').textContent = timezone.region;
-    document.getElementById('tz-city-label').textContent = timezone.city;
+    document.getElementById('tz-region-button').textContent = timezone.region;
+    document.getElementById('tz-city-button').textContent = timezone.city;
 
     var f = new navigator.mozL10n.DateTimeFormat();
     var now = new Date();
-    var timeLabel = document.getElementById('time-configuration-label');
+    var timeLabel = document.getElementById('time-configuration-button');
     timeLabel.innerHTML = f.localeFormat(now, _('shortTimeFormat'));
   },
 
-  updateDataConnectionStatus: function ui_udcs(status) {
-    this.dataConnectionSwitch.checked = status;
-  }
+  enableNewsletter: function ui_enableNewsletter() {
+    var button = this.newsletterSubmit;
+    button.classList.remove('disabled');
+  },
 
+  disableNewsletter: function ui_disableNewsletter() {
+    var button = this.newsletterSubmit;
+    button.classList.add('disabled');
+  },
+
+  toggleNewsletter: function ui_toggleNewsletter() {
+    var button = this.newsletterSubmit;
+    button.classList.contains('disabled') ?
+      this.enableNewsletter() : this.disableNewsletter();
+  },
+
+  end: function ui_end() {
+    this.activationScreen.classList.remove('show');
+    this.finishScreen.classList.add('show');
+    this.hideActivationScreenFromScreenReader();
+  }
 };
 
 function toCamelCase(str) {
