@@ -1,0 +1,20 @@
+#activation-screen.skin-organic[role="region"] > header:first-child{
+    color: #868692;
+    background-color: rgba(0, 0, 0, 0.07);
+}
+
+section[role="region"] > header:first-child a:hover{
+    background-color: transparent;
+}
+
+#wifi-refresh-button {
+    float: right;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 3.5rem auto;
+    background-image: url('images/refresh.png');
+}
+
+html[dir="rtl"] #wifi-refresh-button {
+    float: left;
+}
