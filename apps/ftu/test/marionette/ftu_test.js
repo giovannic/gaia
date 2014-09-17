@@ -21,7 +21,9 @@ marionette('First Time Use >', function() {
     // finished, and that the panel is displayed.
     client.helper.waitForElement(panel_id);
     if (button_id) {
+      console.log('waiting');
       var button = client.helper.waitForElement(button_id);
+      console.log('waited');
       button.click();
     }
   };
@@ -32,14 +34,14 @@ marionette('First Time Use >', function() {
 
   test('FTU click thru', function() {
     client.apps.switchToApp(FTU);
-    clickThruPanel('#languages', '#forward');
-    clickThruPanel('#wifi', '#forward');
-    clickThruPanel('#date_and_time', '#forward');
-    clickThruPanel('#geolocation', '#forward');
-    clickThruPanel('#import_contacts', '#forward');
-    clickThruPanel('#firefox_accounts', '#forward');
-    clickThruPanel('#welcome_browser', '#forward');
-    clickThruPanel('#browser_privacy', '#forward');
+    clickThruPanel('#languages', 'li.nav-item');
+    clickThruPanel('#wifi', '#meh');
+    clickThruPanel('#date_and_time', '.nav-item');
+    clickThruPanel('#geolocation', '.nav-item');
+    clickThruPanel('#import_contacts', '.nav-item');
+    clickThruPanel('#firefox_accounts', '.nav-item');
+    clickThruPanel('#welcome_browser', '.nav-item');
+    clickThruPanel('#browser_privacy', '.nav-item');
     clickThruPanel('#finish-screen', undefined);
   });
 

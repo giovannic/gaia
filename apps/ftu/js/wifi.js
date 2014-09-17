@@ -299,7 +299,6 @@ var WifiUI = {
     networksDOM.innerHTML = '';
     var noResultContainer = UIManager.noResultContainer;
     if (!networks || networks.length === 0) {
-      console.error(WifiManager.status);
       noResultContainer.classList.remove('hidden');
     } else {
       noResultContainer.classList.add('hidden');
