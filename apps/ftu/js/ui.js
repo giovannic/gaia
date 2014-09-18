@@ -87,6 +87,7 @@ var UIManager = {
     'hidden-wifi-identity',
     'hidden-wifi-identity-box',
     'hidden-wifi-show-password',
+    'hidden-wifi-join-button',
     //Date & Time
     'date-configuration',
     'time-configuration',
@@ -150,6 +151,7 @@ var UIManager = {
 
     this.wifiRefreshButton.addEventListener('click', this);
     this.wifiJoinButton.addEventListener('click', this);
+    this.hiddenWifiJoinButton.addEventListener('click', this);
     this.networks.addEventListener('click', this);
 
     this.joinHiddenButton.addEventListener('click', this);
@@ -366,11 +368,10 @@ var UIManager = {
         WifiManager.scan(WifiUI.renderNetworks);
         break;
       case 'wifi-join-button':
-        if (window.location.hash === '#hidden-wifi-authentication') {
-          WifiUI.joinHiddenNetwork();
-        } else {
           WifiUI.joinNetwork();
-        }
+        break;
+      case 'hidden-wifi-join-button':
+          WifiUI.joinHiddenNetwork();
         break;
       case 'join-hidden-button':
         WifiUI.addHiddenNetwork();
@@ -470,7 +471,7 @@ var UIManager = {
     // Reset the field
     navigator.mozL10n.localize(
       UIManager.fxaIntro,
-      'fxa-overview'
+      'fxa-upsell'
     );
     // Enable the button
     UIManager.fxaCreateAccount.disabled = false;

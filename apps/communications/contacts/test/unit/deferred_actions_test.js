@@ -1,7 +1,8 @@
 'use strict';
 /* global MockImportStatusData, Mockfb, MockContacts, MockNavigationStack,
-   MockCookie */
+   MockCookie, DeferredActions*/
 
+require('/shared/js/lazy_loader.js');
 requireApp('communications/contacts/test/unit/mock_import_status_data.js');
 requireApp('communications/contacts/test/unit/mock_fb.js');
 requireApp('communications/contacts/test/unit/mock_navigation.js');
@@ -9,6 +10,7 @@ requireApp('communications/contacts/test/unit/mock_contacts_list_obj.js');
 requireApp('communications/contacts/test/unit/mock_contacts.js');
 requireApp('communications/contacts/test/unit/mock_cookie.js');
 requireApp('communications/contacts/test/unit/mock_fb.js');
+requireApp('communications/contacts/js/deferred_actions.js');
 
 
 if (!navigator.addIdleObserver) {
@@ -21,10 +23,6 @@ if (!navigator.removeIdleObserver) {
 
 if (!window.ImportStatusData) {
   window.ImportStatusData = null;
-}
-
-if (!window.LazyLoader) {
-  window.LazyLoader = {load: function(){}};
 }
 
 if (!window.contacts) {
@@ -43,7 +41,8 @@ if (!window.fb) {
 suite('Post rendering', function() {
   var realImportStatusData,
       realUtils,
-      realFb;
+      realFb,
+      realFbLoader;
 
   var mockNavigationStack;
 
@@ -61,40 +60,32 @@ suite('Post rendering', function() {
     window.fb = Mockfb;
 
     mockNavigationStack = new MockNavigationStack();
-    sinon.stub(window.LazyLoader, 'load', function(files, callback) {
-      callback();
-    });
   });
 
   suiteTeardown(function() {
     window.ImportStatusData = realImportStatusData;
-    window.LazyLoader.load.restore();
   });
 
   suite('Post rendering actions', function() {
-    var realAddIdleObserver, realRemoveIdleObserver;
-
     suiteSetup(function() {
-      realAddIdleObserver = navigator.addIdleObserver;
-      navigator.addIdleObserver = function(idleObserver) {
-        idleObserver.onidle();
-      };
-
-      realRemoveIdleObserver = navigator.removeIdleObserver;
-      navigator.removeIdleObserver = function() {};
-
       sinon.stub(navigator, 'addIdleObserver', function(idleObserver) {
         idleObserver.onidle();
       });
 
       sinon.stub(navigator, 'removeIdleObserver', function() {});
+
+      realFbLoader = window.fbLoader;
+
+      window.fbLoader = {
+        loaded: true
+      };
     });
 
     suiteTeardown(function() {
       navigator.addIdleObserver.restore();
       navigator.removeIdleObserver.restore();
-      navigator.addIdleObserver = realAddIdleObserver;
-      navigator.removeIdleObserver = realRemoveIdleObserver;
+
+      window.fbLoader = realFbLoader;
     });
 
     setup(function() {
@@ -105,15 +96,64 @@ suite('Post rendering', function() {
     test('FB sync scheduling when synced in ftu', function(done) {
       sinon.stub(Mockfb.sync, 'scheduleNextSync', function() {
         done(function() {
-            Mockfb.sync.scheduleNextSync.restore();
-          });
+          Mockfb.sync.scheduleNextSync.restore();
+          assert.ok('passed');
+        });
       });
 
-      window.ImportStatusData.put(Mockfb.utils.SCHEDULE_SYNC_KEY, Date.now())
-        .then(function() {
-          requireApp('communications/contacts/js/deferred_actions.js');
+      MockCookie.update({
+        fbMigrated: true,
+        accessTokenMigrated: true
+      });
+
+      window.ImportStatusData.put(
+        Mockfb.utils.SCHEDULE_SYNC_KEY, Date.now()).then(function() {
+          DeferredActions.execute();
+      });
+    });
+
+    test('Facebook not yet loaded', function(done) {
+      var currentFbLoader = window.fbLoader;
+
+      window.fbLoader = {
+        loaded: false
+      };
+
+      sinon.stub(Mockfb.sync, 'scheduleNextSync', function() {
+        done(function() {
+          Mockfb.sync.scheduleNextSync.restore();
+          window.fbLoader = currentFbLoader;
+          assert.ok('passed');
+        });
+      });
+
+      MockCookie.update({
+        fbMigrated: true,
+        accessTokenMigrated: true
+      });
+
+      window.ImportStatusData.put(
+        Mockfb.utils.SCHEDULE_SYNC_KEY, Date.now()).then(function() {
+          DeferredActions.execute();
+          window.dispatchEvent(new CustomEvent('facebookLoaded'));
+      });
+    });
+
+    test('Version migration triggered when needed', function(done) {
+      sinon.stub(window.LazyLoader, 'load', function(file) {
+        if (file.indexOf('migrator.js') > -1) {
+          done(function() {
+            window.LazyLoader.load.restore();
+            assert.ok('passed');
+          });
         }
-      );
+      });
+
+      MockCookie.update({
+        fbScheduleDone: true
+      });
+
+      DeferredActions.execute();
     });
   });
 });

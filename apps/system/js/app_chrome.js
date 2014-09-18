@@ -305,6 +305,10 @@
     } else {
       this.element.classList.add('maximized');
     }
+
+    if (this.app.isActive()) {
+      this.app.publish('titlestatechanged');
+    }
   };
 
   AppChrome.prototype._registerEvents = function ac__registerEvents() {
@@ -459,6 +463,7 @@
 
     if (color === 'transparent' || color === '') {
       this.app.element.classList.remove('light');
+      this.app.publish('titlestatechanged');
       return;
     }
 
@@ -477,6 +482,7 @@
         Math.sqrt((r*r) * 0.241 + (g*g) * 0.691 + (b*b) * 0.068);
 
       self.app.element.classList.toggle('light', brightness > 200);
+      self.app.publish('titlestatechanged');
     });
   };
 
@@ -489,6 +495,10 @@
     this._fetchElements();
     this._registerEvents();
     this.publish('rendered');
+  };
+
+  AppChrome.prototype.useLightTheming = function ac_useLightTheming() {
+    return this.app.element.classList.contains('light');
   };
 
   AppChrome.prototype.useCombinedChrome = function ac_useCombinedChrome(evt) {
@@ -546,6 +556,9 @@
       if (!this.app.isBrowser()) {
         return;
       }
+
+      // We havent got a name for this location
+      this._gotName = false;
 
       // Make the rocketbar unscrollable until the page resizes to the
       // appropriate height.
@@ -622,23 +635,25 @@
     var url = this._currentURL;
 
     LazyLoader.load('shared/js/icons_helper.js', (function() {
-      var activity = new MozActivity({
-        name: 'save-bookmark',
-        data: {
-          type: 'url',
-          url: url,
-          name: name,
-          icon: IconsHelper.getBestIcon(favicons),
-          useAsyncPanZoom: dataset.useAsyncPanZoom,
-          iconable: false
+      IconsHelper.getIcon(url, null, {icons: favicons}).then(icon => {
+        var activity = new MozActivity({
+          name: 'save-bookmark',
+          data: {
+            type: 'url',
+            url: url,
+            name: name,
+            icon: icon,
+            useAsyncPanZoom: dataset.useAsyncPanZoom,
+            iconable: false
+          }
+        });
+
+        if (this.addToHomeButton) {
+          activity.onsuccess = function onsuccess() {
+            this.addToHomeButton.hidden = true;
+          }.bind(this);
         }
       });
-
-      if (this.addToHomeButton) {
-        activity.onsuccess = function onsuccess() {
-          this.addToHomeButton.hidden = true;
-        }.bind(this);
-      }
     }).bind(this));
   };
 

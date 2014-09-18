@@ -289,7 +289,7 @@ suite('Contacts settings >', function() {
 
     var noCardErrorImport = 'noMemoryCardMsg',
         noCardErrorExport = 'noMemoryCardMsgExport',
-        umsEnabledError = 'sdUMSEnabled';
+        umsEnabledError = 'memoryCardUMSEnabled';
 
     function shareSDCard() {
       utils.sdcard.status = MockSdCard.SHARED;
@@ -368,6 +368,31 @@ suite('Contacts settings >', function() {
       test('export error message should be correct (insert SD card)',
         function() {
         assert.equal(exportError.textContent, noCardErrorExport);
+      });
+    });
+
+    suite('SD not present >', function() {
+      var deviceStorages, deviceStorage;
+
+      suiteSetup(function() {
+        deviceStorages = utils.sdcard.deviceStorages;
+        deviceStorage = utils.sdcard.deviceStorage;
+
+        utils.sdcard.deviceStorages = [];
+        utils.sdcard.deviceStorage = null;
+      });
+
+      suiteTeardown(function() {
+        utils.sdcard.deviceStorages = deviceStorages;
+        utils.sdcard.deviceStorage = deviceStorage;
+      });
+
+      test('import button should be disabled', function() {
+        assert.isTrue(importSDButton.hasAttribute('disabled'));
+      });
+
+      test('export button should be disabled', function() {
+        assert.isTrue(exportSDButton.hasAttribute('disabled'));
       });
     });
 

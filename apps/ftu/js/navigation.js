@@ -58,7 +58,9 @@ var Navigation = {
   previousStep: 1,
   totalSteps: numSteps,
   simMandatory: false,
-  skipDataScreen: false,
+  skipMobileDataScreen: false,
+  skipDateTimeScreen: false,
+  tzInitialized: false,
   init: function n_init() {
     _ = navigator.mozL10n.get;
     var settings = navigator.mozSettings;
@@ -85,7 +87,6 @@ var Navigation = {
     window.addEventListener('hashchange', this);
     UIManager.activationScreen.addEventListener('click',
         this.handleExternalLinksClick.bind(this));
-
 
     var reqSIM =
       settings && settings.createLock().get('ftu.sim.mandatory') || {};
@@ -156,6 +157,17 @@ var Navigation = {
     window.open(href, '', 'dialog');
   },
 
+  ensureTZInitialized: function () {
+    if (!this.tzInitialized) {
+      return UIManager.initTZ().then(() => {
+        this.skipDateTimeScreen = !UIManager.timeZoneNeedsConfirmation;
+        this.tzInitialized = true;
+      });
+    } else {
+      return Promise.resolve();
+    }
+  },
+
   handleEvent: function n_handleEvent(event) {
     var actualHash = window.location.hash;
     switch (actualHash) {
@@ -216,6 +228,14 @@ var Navigation = {
         break;
       case '#welcome_browser':
         UIManager.mainTitle.innerHTML = _('aboutBrowser');
+        var welcome = document.getElementById('browser_os_welcome');
+        navigator.mozL10n.localize(welcome, 'htmlWelcome', {
+          link: getLocalizedLink('htmlWelcome')
+        });
+        var improve = document.getElementById('browser_os_improve');
+        navigator.mozL10n.localize(improve, 'helpImprove', {
+          link: getLocalizedLink('helpImprove')
+        });
         break;
       case '#browser_privacy':
         UIManager.mainTitle.innerHTML = _('aboutBrowser');
@@ -309,7 +329,7 @@ var Navigation = {
     // Reset totalSteps and skip screen flags at beginning of navigation
     if (self.currentStep == 1) {
       self.totalSteps = numSteps;
-      self.skipDataScreen = false;
+      self.skipMobileDataScreen = false;
     } else {
       // Show back button otherwise
       UIManager.backButton.classList.remove('hidden');
@@ -339,7 +359,7 @@ var Navigation = {
          futureLocation.hash !== '#data_3g')) {
           self.skipStep();
           if (self.currentStep > self.previousStep) {
-            self.skipDataScreen = true;
+            self.skipMobileDataScreen = true;
             self.totalSteps--;
           }
         }
@@ -355,7 +375,11 @@ var Navigation = {
     // timezone from the network. (We assume that if we can
     // determine the timezone, we can determine the time too.)
     if (steps[self.currentStep].hash === '#date_and_time') {
-      if (!UIManager.timeZoneNeedsConfirmation) {
+      if (!self.tzInitialized) {
+        self.skipDateTimeScreen = !UIManager.timeZoneNeedsConfirmation;
+      }
+
+      if (self.skipDateTimeScreen) {
         self.postStepMessage(self.currentStep);
         if(navigator.onLine) {
           //if you are online you can get a more accurate guess for the time

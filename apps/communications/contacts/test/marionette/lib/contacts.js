@@ -51,6 +51,7 @@ Contacts.Selectors = {
   formCustomTagDone: '#view-select-tag #settings-done',
   formNew: '#add-contact-button',
   formGivenName: '#givenName',
+  formOrg: '#org',
   formFamilyName: '#familyName',
   formSave: '#save-button',
   formTel: '#contacts-form-phones input[type="tel"]',
@@ -62,6 +63,7 @@ Contacts.Selectors = {
   list: '#view-contacts-list',
   listContactFirst: '.contact-item',
   listContactFirstText: '.contact-item .contact-text',
+  contactListHeader: '#contacts-list-header',
 
   searchLabel: '#search-start',
   searchInput: '#search-contact',
@@ -75,7 +77,14 @@ Contacts.Selectors = {
   bulkDelete: '#bulkDelete',
 
   editForm: '#selectable-form',
-  editMenu: '#select-all-wrapper'
+  editMenu: '#select-all-wrapper',
+
+  clearOrgButton: '#clear-org',
+  setIceButton: '#set-ice',
+  iceSwitch1: '#ice-contacts-1-switch',
+  iceSwitch2: '#ice-contacts-2-switch',
+  iceButton1: '#select-ice-contact-1',
+  iceButton2: '#select-ice-contact-2'
 };
 
 Contacts.prototype = {
@@ -161,7 +170,8 @@ Contacts.prototype = {
 
     details = details || {
       givenName: 'Hello',
-      familyName: 'Contact'
+      familyName: 'Contact',
+      org: 'Enterprise'
     };
 
     this.waitForFormShown();

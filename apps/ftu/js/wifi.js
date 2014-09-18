@@ -251,7 +251,6 @@ var WifiUI = {
     // Update network
     var selectedNetwork = WifiManager.getNetwork(ssid);
     var ssidHeader = document.getElementById('wifi_ssid');
-    var userLabel = document.getElementById('label_wifi_user');
     var userInput = document.getElementById('wifi_user');
     var passwordInput = document.getElementById('wifi_password');
     var showPassword = document.querySelector('input[name=show_password]');
@@ -310,7 +309,6 @@ var WifiUI = {
     networksDOM.innerHTML = '';
     var noResultContainer = UIManager.noResultContainer;
     if (!networks || networks.length === 0) {
-      console.error(WifiManager.status);
       noResultContainer.classList.remove('hidden');
     } else {
       noResultContainer.classList.add('hidden');

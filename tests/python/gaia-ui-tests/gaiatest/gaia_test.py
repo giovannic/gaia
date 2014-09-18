@@ -653,7 +653,7 @@ class GaiaDevice(object):
             else:
                 # touching home button inside homescreen will scroll it to the top
                 Wait(self.marionette).until(lambda m: m.execute_script(
-                    "return document.querySelector('.scrollable').scrollTop") == 0)
+                    "return window.wrappedJSObject.scrollY") == 0)
 
     def _dispatch_home_button_event(self):
         self.marionette.switch_to_frame()
@@ -673,10 +673,9 @@ class GaiaDevice(object):
         return self.marionette.execute_script('return window.wrappedJSObject.System.locked')
 
     def lock(self):
-        self.marionette.import_script(self.lockscreen_atom)
-        self.marionette.switch_to_frame()
-        result = self.marionette.execute_async_script('GaiaLockScreen.lock()')
-        assert result, 'Unable to lock screen'
+        self.turn_screen_off()
+        self.turn_screen_on()
+        assert self.is_locked, 'The screen is not locked'
         Wait(self.marionette).until(lambda m: m.find_element(By.CSS_SELECTOR, 'div.lockScreenWindow.active'))
 
     def unlock(self):

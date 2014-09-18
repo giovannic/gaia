@@ -36,8 +36,7 @@ const TYPE_GROUP_MAPPING = {
   'color': 'option'
 };
 
-// How long to wait for more focuschange events before processing
-const BLUR_CHANGE_DELAY = 100;
+// How long to wait before we actually switch layouts
 const SWITCH_CHANGE_DELAY = 20;
 
 var KeyboardManager = {
@@ -53,7 +52,6 @@ var KeyboardManager = {
     height: 0
   },
 
-  focusChangeTimeout: 0,
   switchChangeTimeout: 0,
   _onDebug: false,
   _debug: function km_debug(msg) {
@@ -102,7 +100,7 @@ var KeyboardManager = {
     window.addEventListener('mozbrowsererror', this);
     window.addEventListener('applicationsetupdialogshow', this);
     window.addEventListener('mozmemorypressure', this);
-    window.addEventListener('sheetstransitionstart', this);
+    window.addEventListener('sheets-gesture-begin', this);
     window.addEventListener('lockscreen-appopened', this);
 
     // To handle keyboard layout switching
@@ -247,16 +245,10 @@ var KeyboardManager = {
       return;
     }
 
-    // Before a new focus event we get a blur event
-    // So if that's the case, wait a bit and see if a focus comes in
-    clearTimeout(this.focusChangeTimeout);
-
     if ('blur' === type) {
-      this.focusChangeTimeout = setTimeout(function keyboardFocusChanged() {
-        this._debug('get blur event');
-        this.hideKeyboard();
-        this.imeSwitcher.hide();
-      }.bind(this), BLUR_CHANGE_DELAY);
+      this._debug('get blur event');
+      this.hideKeyboard();
+      this.imeSwitcher.hide();
     } else {
       // display the keyboard for that group decided by input type
       // fallback to text for default if no group is found
@@ -297,7 +289,7 @@ var KeyboardManager = {
         break;
       case 'lockscreen-appopened':
         /* falls through */
-      case 'sheetstransitionstart':
+      case 'sheets-gesture-begin':
         if (this.hasActiveKeyboard) {
           // Instead of hideKeyboard(), we should removeFocus() here.
           // (and, removing the focus cause Gecko to ask us to hideKeyboard())
