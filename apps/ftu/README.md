@@ -12,10 +12,10 @@ make install-gaia APP=ftu
 My feature branches for the this ftu are prefixed with 'ftu-'. This is a merge
 of those branches.
 
-ftu-wifi: a smoother wifi page
-ftu-tz: a simplification of the timezone screen
-ftu-flow: a user flow that is aware of network connectivity
-ftu-nav2: a navigation that has option lists instead of the standard next/back
+- ftu-wifi: a smoother wifi page
+- ftu-tz: a simplification of the timezone screen 
+- ftu-flow: a user flow that is aware of network connectivity br
+- ftu-nav2: a navigation that has option lists instead of the standard next/back
 buttons
 
 For any features, feel free to post an issue and I will work on it!
