@@ -37,10 +37,10 @@ var WifiManager = {
     }
     this._scanning = true;
     utils.overlay.show(_('scanningNetworks'), 'spinner');
-    this.scanTimeout;
     var SCAN_TIMEOUT = 10000;
 
     var self = this;
+    self.onScan = callback;
 
     var req = this.api ? this.api.getNetworks() : null;
     if (!req) {
@@ -59,22 +59,27 @@ var WifiManager = {
       self._scanning = false;
       self.networks = req.result;
       clearTimeout(self.scanTimeout);
-      callback(self.networks);
+      self.scanTimeout = null;
+      self.onScan(self.networks);
+      self.onScan = null;
     };
 
     req.onerror = function onScanError() {
       self._scanning = false;
       console.error('Error reading networks: ' + req.error.name);
-      self.scanQueued = true;
+      self.onScan = callback;
     };
 
     // Timeout in case of scanning errors not thrown by the API
     // We can't block the user in the screen (bug 889623)
-    this.scanTimeout = setTimeout(function() {
-      self._scanning = false;
-      console.warn('Timeout while reading networks');
-      callback();
-    }, SCAN_TIMEOUT);
+    if (self.scanTimeout == null) {
+      self.scanTimeout = setTimeout(function() {
+        self._scanning = false;
+        console.warn('Timeout while reading networks');
+        self.onScan();
+      }, SCAN_TIMEOUT);
+    }
+
   },
 
   enable: function wn_enable(lock) {
@@ -142,12 +147,8 @@ var WifiManager = {
       WifiManager.api.onstatuschange = function(event) {
         if (event.status === 'connected') {
           WifiUI.updateNetworkStatus(event.network.ssid, event.status);
-        } else if (event.status === 'disconnected' && self.scanQueued) {
-          self.scan(function(networks) {
-            self.scanQueued = false;
-            clearTimeout(self.scanTimeout);
-            WifiUI.renderNetworks(networks);
-          });
+        } else if (event.status === 'disconnected' && self.onScan) {
+          self.scan(self.onScan);
         } else {
           // we assume that this status is to do with the last network
           // we have seen.

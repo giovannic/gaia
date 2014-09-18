@@ -192,7 +192,7 @@ var Navigation = {
         // This is the last good opportunity to call it.
 
         WifiManager.getNetworks((networks) => {
-          UIManager.initTZ().then(() => {
+          this.ensureTZInitialized().then(() => {
             WifiUI.renderNetworks(networks);
           });
         });
