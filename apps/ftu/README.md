@@ -2,9 +2,11 @@
 
 Update your source and flash onto your FxOS device by running:
 
-`git remote add giovanni git@github.com:giovannic/gaia.git`
-`git checkout -b newrebasedftu giovanni/newrebasedftu`
-`make install-gaia APP=ftu`
+```
+git remote add giovanni git@github.com:giovannic/gaia.git
+git checkout -b newrebasedftu giovanni/newrebasedftu
+make install-gaia APP=ftu
+```
 
 #Features
 My feature branches for the this ftu are prefixed with 'ftu-'. This is a merge
