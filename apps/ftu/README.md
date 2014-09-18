@@ -1,4 +1,4 @@
-###First time experience 2.2!
+# First time experience 2.2!
 
 Update your source and flash onto your FxOS device by running:
 
@@ -8,7 +8,7 @@ git checkout -b newrebasedftu giovanni/newrebasedftu
 make install-gaia APP=ftu
 ```
 
-#Features
+### Features
 My feature branches for the this ftu are prefixed with 'ftu-'. This is a merge
 of those branches.
 
