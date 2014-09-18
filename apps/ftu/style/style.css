@@ -524,80 +524,13 @@ aside.connecting {
   Date and time
 */
 
-#time_zone_overlay {
-  background-position: center top;
-  background-repeat: no-repeat;
-  background-size: 100%;
-  position: relative;
-  position: absolute;
-  z-index: 2;
-  width: 100%;
-  height: 40%;
-  padding-top: 0.5rem;
-  -moz-box-sizing: border-box;
-}
-
-#time_zone_overlay.UTC0000 { background-image: url('images/timezone/+0000.png'); }
-#time_zone_overlay.UTC0100 { background-image: url('images/timezone/+0100.png'); }
-#time_zone_overlay.UTC0200 { background-image: url('images/timezone/+0200.png'); }
-#time_zone_overlay.UTC0300 { background-image: url('images/timezone/+0300.png'); }
-#time_zone_overlay.UTC0330 { background-image: url('images/timezone/+0330.png'); }
-#time_zone_overlay.UTC0400 { background-image: url('images/timezone/+0400.png'); }
-#time_zone_overlay.UTC0430 { background-image: url('images/timezone/+0430.png'); }
-#time_zone_overlay.UTC0500 { background-image: url('images/timezone/+0500.png'); }
-#time_zone_overlay.UTC0530 { background-image: url('images/timezone/+0530.png'); }
-#time_zone_overlay.UTC0545 { background-image: url('images/timezone/+0545.png'); }
-#time_zone_overlay.UTC0600 { background-image: url('images/timezone/+0600.png'); }
-#time_zone_overlay.UTC0630 { background-image: url('images/timezone/+0630.png'); }
-#time_zone_overlay.UTC0700 { background-image: url('images/timezone/+0700.png'); }
-#time_zone_overlay.UTC0800 { background-image: url('images/timezone/+0800.png'); }
-#time_zone_overlay.UTC0845 { background-image: url('images/timezone/+0845.png'); }
-#time_zone_overlay.UTC0900 { background-image: url('images/timezone/+0900.png'); }
-#time_zone_overlay.UTC0930 { background-image: url('images/timezone/+0930.png'); }
-#time_zone_overlay.UTC1000 { background-image: url('images/timezone/+1000.png'); }
-#time_zone_overlay.UTC1030 { background-image: url('images/timezone/+1030.png'); }
-#time_zone_overlay.UTC1100 { background-image: url('images/timezone/+1100.png'); }
-#time_zone_overlay.UTC1130 { background-image: url('images/timezone/+1130.png'); }
-#time_zone_overlay.UTC1200 { background-image: url('images/timezone/+1200.png'); }
-#time_zone_overlay.UTC1245 { background-image: url('images/timezone/+1245.png'); }
-#time_zone_overlay.UTC1300 { background-image: url('images/timezone/+1300.png'); }
-#time_zone_overlay.UTC1400 { background-image: url('images/timezone/+1400.png'); }
-#time_zone_overlay.UTC-0100 { background-image: url('images/timezone/-0100.png'); }
-#time_zone_overlay.UTC-0200 { background-image: url('images/timezone/-0200.png'); }
-#time_zone_overlay.UTC-0300 { background-image: url('images/timezone/-0300.png'); }
-#time_zone_overlay.UTC-0330 { background-image: url('images/timezone/-0330.png'); }
-#time_zone_overlay.UTC-0400 { background-image: url('images/timezone/-0400.png'); }
-#time_zone_overlay.UTC-0430 { background-image: url('images/timezone/-0430.png'); }
-#time_zone_overlay.UTC-0500 { background-image: url('images/timezone/-0500.png'); }
-#time_zone_overlay.UTC-0600 { background-image: url('images/timezone/-0600.png'); }
-#time_zone_overlay.UTC-0700 { background-image: url('images/timezone/-0700.png'); }
-#time_zone_overlay.UTC-0800 { background-image: url('images/timezone/-0800.png'); }
-#time_zone_overlay.UTC-0900 { background-image: url('images/timezone/-0900.png'); }
-#time_zone_overlay.UTC-0930 { background-image: url('images/timezone/-0930.png'); }
-#time_zone_overlay.UTC-1000 { background-image: url('images/timezone/-1000.png'); }
-#time_zone_overlay.UTC-1100 { background-image: url('images/timezone/-1100.png'); }
-#time_zone_overlay.UTC-1200 { background-image: url('images/timezone/-1200.png'); }
-
-#time_zone_map {
-  background-image: url('images/timezone/map.png') ;
-  background-position: center top;
-  background-repeat: no-repeat;
-  background-size: 100%;
-  /*position: relative;*/
-  height: 40%;
-  width: 100%;
-  padding-top: 0.5rem;
-  -moz-box-sizing: border-box;
-  z-index: 1;
-}
-
 #time-form {
   z-index: 11;
 }
 
 #time-form [data-type="list"] {
-    font-weight: 400;
-    padding: 0 0;
+  font-weight: 400;
+  padding: 0 0;
 }
 
 #date_and_time h1 {
