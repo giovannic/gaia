@@ -21,9 +21,7 @@ marionette('First Time Use >', function() {
     // finished, and that the panel is displayed.
     client.helper.waitForElement(panel_id);
     if (button_id) {
-      console.log('waiting for ' + button_id);
       var button = client.helper.waitForElement(button_id);
-      console.log('clicking ' + button_id);
       button.tap();
     }
   };
