@@ -563,7 +563,6 @@ var UIManager = {
     timeLabel.innerHTML = f.localeFormat(now, _('shortTimeFormat'));
   },
 
-<<<<<<< HEAD
   updateDataConnectionStatus: function ui_udcs(status) {
     this.dataConnectionSwitch.checked = status;
   },
@@ -571,13 +570,12 @@ var UIManager = {
   changeStatusBarColor: function ui_csbc(color) {
     var themeMeta = document.head.querySelector('meta[name="theme-color"]');
     themeMeta.setAttribute('content', color);
-  }
-=======
+  },
+
   enableNewsletter: function ui_enableNewsletter() {
     var button = this.newsletterSubmit;
     button.classList.remove('disabled');
   },
->>>>>>> Bug 1067462 - Change nav-bar to list navigation
 
   disableNewsletter: function ui_disableNewsletter() {
     var button = this.newsletterSubmit;
