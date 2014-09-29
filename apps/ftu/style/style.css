@@ -767,34 +767,20 @@ html[dir="rtl"] #import_contacts div.nav-item:after {
 /*
   About your rights
 */
-#welcome_browser_content {
-  padding: 1.5rem 3rem 0 3rem;
-  width: calc(100% - 6rem);
-}
 
-#form_share_statistics > p, #welcome_browser_content > p {
-  margin: 0;
-  color: #000;
-  padding: 0 0 2rem 0;
+.content {
+  padding: 0 3rem 0 3rem;
+  width: calc(100% - 6rem);
   font-size: 18px;
   line-height: 1.8rem;
 }
 
 #welcome_browser #browser_logo_horizontal {
-  margin: 1rem 0;
+  margin: 1rem 3rem;
 }
 
 #welcome_browser #browser_logo_horizontal img {
   width: 20rem;
-}
-
-#welcome_browser_content label {
-  position: absolute;
-  margin: -1.5rem 0 0 -1.5rem;
-}
-
-#welcome_browser_content section p a {
-  margin-left: 0.3rem;
 }
 
 #welcome_browser #browser_os_privacy_links {
@@ -814,26 +800,6 @@ html[dir="rtl"] #import_contacts div.nav-item:after {
 #welcome_browser #browser_os_privacy_links a:last-child {
   float: right;
   text-align: right;
-}
-
-#welcome_browser #form_share_statistics {
-  clear: both;
-}
-
-#welcome_browser #form_share_statistics label {
-  width: 100%;
-  height: auto;
-  margin: 0 3rem 0 0;
-  padding-right: 3rem;
-}
-
-#form_share_statistics span:after {
-  top: 1rem;
-  left: 1rem;
-}
-
-#welcome_browser #form_share_statistics p {
-  width: calc(100% - 3.5rem);
 }
 
 /*
