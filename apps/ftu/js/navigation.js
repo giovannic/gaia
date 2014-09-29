@@ -77,11 +77,9 @@ var Navigation = {
       }
     );
 
-    Array.prototype.forEach.call(
-      document.getElementsByClassName('back'),
-      function(back){
-        back.addEventListener('click', Navigation.back.bind(Navigation));
-      }
+    UIManager.backButton.addEventListener(
+      'click', 
+      Navigation.back.bind(Navigation)
     );
 
     window.addEventListener('hashchange', this);
