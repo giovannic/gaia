@@ -17,12 +17,40 @@ marionette('First Time Use >', function() {
       // things to fail.
       client.helper.waitForElementToDisappear('#loading-overlay');
     }
-    // waitForElement is used to make sure animations and page changes have
-    // finished, and that the panel is displayed.
-    client.helper.waitForElement(panel_id);
-    if (button_id) {
-      var button = client.helper.waitForElement(button_id);
-      button.tap();
+
+    if (panel_id == '#date_and_time') {
+      client.findElement('#dt_skip', function(err, element) {
+        if (err) {
+          console.error(err);
+          return;
+        }
+
+        var scroll = function() {
+          document.getElementById('dt_skip').scrollIntoView(false);
+          return { success: true };
+        };
+
+        client.executeJsScript(
+          scroll, 
+          [], 
+          function(err, value) {
+            if (err || !value.success) {
+              console.error(err + ' with value ' + value);
+              return;
+            }
+            var button = client.helper.waitForElement('#dt_skip');
+            button.tap();
+          }
+        );
+      });
+    } else {
+      // waitForElement is used to make sure animations and page changes have
+      // finished, and that the panel is displayed.
+      client.helper.waitForElement(panel_id);
+      if (button_id) {
+        var button = client.helper.waitForElement(button_id);
+        button.tap();
+      }
     }
   };
 
